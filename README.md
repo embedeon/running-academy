@@ -23,8 +23,9 @@ The whole year as a printable table is in [`PROGRAM.md`](PROGRAM.md), in Finnish
 ## The app
 
 - **Today:** today's workout, buttons for done or skipped, a note field (distance, time, how it felt), and the rest of the week.
-- **Plan:** all 52 weeks laid out like the original paper table. A finished day gets a red cross, as if marked with a pen.
-  Tap any day to mark it or add a note.
+- **Plan:** all 52 weeks laid out like the original table. The colored stripe on each day shows the workout type.
+  Tap the circle to mark a day done (it turns green with a ✓). Tap the text to see details, mark the day skipped, or add a note.
+  Past days that were never marked get a dashed amber circle.
 - **Progress:** workouts done, how much of the plan is done so far, streak of full weeks, week heatmap, milestones and phases.
 - **Settings:** start date, or "I am currently on week N"; a button to mark all earlier days as done (useful if you
   already followed the paper version); JSON backup export and import; Finnish/English.

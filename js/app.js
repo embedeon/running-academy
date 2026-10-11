@@ -17,7 +17,7 @@
       week: 'Viikko', weekShort: 'vko',
       types: { rest: 'Lepo', walk: 'Kävely', run: 'Juoksu', speed: 'Vauhti', long: 'Pitkä lenkki', cross: 'Oheisharjoitus', race: 'Tavoite / kisa' },
       note: 'Muistiinpano (esim. matka, aika, fiilis)',
-      markDone: 'Tehty ✓', markSkipped: 'Väliin jäi', clear: 'Tyhjennä', close: 'Sulje', addNote: 'Muistiinpano',
+      markDone: 'Tehty ✓', markSkipped: 'Väliin jäi', toggleDone: 'Merkitse tehdyksi', todayLabel: 'Tänään', missedLabel: 'Merkitsemättä', clear: 'Tyhjennä', close: 'Sulje', addNote: 'Muistiinpano',
       statusDone: 'Tehty', statusSkipped: 'Väliin jäi',
       todayWorkout: 'Päivän harjoitus', thisWeek: 'Tämä viikko', weekDone: 'viikon harjoituksista tehty',
       notStarted: (n) => `Ohjelma alkaa ${n} päivän päästä. Tässä ensimmäinen harjoitus:`,
@@ -55,7 +55,7 @@
       week: 'Week', weekShort: 'wk',
       types: { rest: 'Rest', walk: 'Walk', run: 'Run', speed: 'Speed', long: 'Long run', cross: 'Cross-training', race: 'Goal / race' },
       note: 'Note (e.g. distance, time, how it felt)',
-      markDone: 'Done ✓', markSkipped: 'Skipped', clear: 'Clear', close: 'Close', addNote: 'Note',
+      markDone: 'Done ✓', markSkipped: 'Skipped', toggleDone: 'Mark as done', todayLabel: 'Today', missedLabel: 'Not marked', clear: 'Clear', close: 'Close', addNote: 'Note',
       statusDone: 'Done', statusSkipped: 'Skipped',
       todayWorkout: 'Today’s workout', thisWeek: 'This week', weekDone: 'of this week’s workouts done',
       notStarted: (n) => `The program starts in ${n} day(s). Here is your first workout:`,
@@ -213,6 +213,7 @@
   // ---------------------------------------------------------------- rendering
   const $ = (sel) => document.querySelector(sel);
   let currentView = 'today';
+  let justToggled = null;
   let scrollToCurrent = true;
 
   function badge(type) {
@@ -230,19 +231,27 @@
     const idx = (w - 1) * 7 + d;
     const cls = ['cell', `type-${workout(w, d).type}`];
     if (e.s) cls.push(e.s);
+    if (justToggled === key(w, d) && e.s === 'done') cls.push('pop');
     if (pos.status === 'active' && idx === pos.idx) cls.push('today');
     else if (pos.status !== 'before' && idx < pos.idx && !e.s && isWorkout(w, d)) cls.push('missed');
     return cls.join(' ');
   }
 
+  function checkBtn(w, d) {
+    const done = entry(w, d).s === 'done';
+    return `<button class="check" data-act="done" data-w="${w}" data-d="${d}"
+      aria-pressed="${done}" aria-label="${esc(t().toggleDone)}" title="${esc(t().toggleDone)}"></button>`;
+  }
+
   function dayRow(w, d, pos) {
     const wo = workout(w, d);
     const e = entry(w, d);
-    return `<button class="${cellClasses(w, d, pos)} row" data-w="${w}" data-d="${d}">
+    const isToday = pos.status === 'active' && (w - 1) * 7 + d === pos.idx;
+    return `<div class="${cellClasses(w, d, pos)} row" role="button" tabindex="0" data-w="${w}" data-d="${d}">
       <span class="row-day">${esc(t().daysShort[d])}<small>${esc(fmtDate(dateFor(w, d)).replace(/\.\d{4}$/, '.'))}</small></span>
-      <span class="row-text">${esc(wo[state.lang])}${e.note ? `<em class="row-note">📝 ${esc(e.note)}</em>` : ''}</span>
-      <span class="row-mark" aria-hidden="true"></span>
-    </button>`;
+      <span class="row-text">${isToday ? `<span class="pill">${esc(t().todayLabel)}</span>` : ''}${esc(wo[state.lang])}${e.note ? `<em class="row-note">📝 ${esc(e.note)}</em>` : ''}</span>
+      ${checkBtn(w, d)}
+    </div>`;
   }
 
   function renderToday() {
@@ -297,7 +306,8 @@
     const L = t();
     const pos = position();
     const head = `<div class="grid-head"><span></span>${L.daysShort.map((x) => `<span>${esc(x)}</span>`).join('')}</div>`;
-    let html = '';
+    let html = `<div class="legend">${Object.keys(L.types).map((k) =>
+      `<span class="legend-item type-${k}">${esc(L.types[k])}</span>`).join('')}</div>`;
     for (const phase of P.phases) {
       html += `<h2 class="phase-title"><span>${phase.id}</span>${esc(phase[state.lang])}
         <small>${esc(L.week)} ${phase.weeks[0]}–${phase.weeks[1]}</small></h2>`;
@@ -314,11 +324,12 @@
         for (let d = 0; d < 7; d++) {
           const wo = workout(w, d);
           const e = entry(w, d);
-          html += `<button class="${cellClasses(w, d, pos)}" data-w="${w}" data-d="${d}">
+          html += `<div class="${cellClasses(w, d, pos)}" role="button" tabindex="0" data-w="${w}" data-d="${d}">
             <span class="cell-day">${esc(L.daysShort[d])}</span>
             <span class="cell-text">${esc(wo[state.lang])}</span>
             ${e.note ? '<span class="cell-note" title="note">📝</span>' : ''}
-          </button>`;
+            ${checkBtn(w, d)}
+          </div>`;
         }
         html += '</div>';
       }
@@ -493,7 +504,7 @@
 
   // ---------------------------------------------------------------- events
   document.addEventListener('click', (ev) => {
-    const el = ev.target.closest('button, [data-goto-week]');
+    const el = ev.target.closest('button, [data-goto-week], .cell[data-w]');
     if (!el) return;
 
     if (el.matches('.tabs [data-view]')) return show(el.dataset.view);
@@ -506,7 +517,10 @@
     if (el.dataset.act && w) {
       const cur = entry(w, d).s;
       if (el.dataset.act === 'open') return openDay(w, d);
-      return setEntry(w, d, cur === el.dataset.act ? 'clear' : el.dataset.act);
+      justToggled = key(w, d);
+      setEntry(w, d, cur === el.dataset.act ? 'clear' : el.dataset.act);
+      justToggled = null;
+      return;
     }
     if (w && el.closest('.view') && !el.closest('dialog')) return openDay(w, d);
 
@@ -539,6 +553,14 @@
       if (!confirm(t().resetConfirm)) return;
       state = defaultState(); save(); return render();
     }
+  });
+
+  // Day cells are divs (they contain the check button), so give them keyboard activation.
+  document.addEventListener('keydown', (ev) => {
+    const cell = ev.target.closest && ev.target.closest('.cell[data-w]');
+    if (!cell || ev.target !== cell || (ev.key !== 'Enter' && ev.key !== ' ')) return;
+    ev.preventDefault();
+    openDay(Number(cell.dataset.w), Number(cell.dataset.d));
   });
 
   document.addEventListener('change', (ev) => {
