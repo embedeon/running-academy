@@ -9,14 +9,15 @@ A small web app that takes you from walking to running in one year, with progres
 | Phase | Weeks | Focus | Peak |
 |---|---|---|---|
 | 1 | 1–11 | From walking to running | 10 km |
-| 2 | 12–16 | Making running a habit (4 runs + strength) | 60 min long run |
+| 2 | 12–16 | Making running a habit (4 runs + a brisk walk) | 60 min long run |
 | 3 | 17–20 | Speed and hills | 5 km test (wk 20) |
 | 4 | 21–24 | 10 km time trial | 10 km time trial (wk 24) |
-| 5 | 25–28 | Recovery and variety | – |
+| 5 | 25–28 | Recovery and base | – |
 | 6 | 29–42 | Half marathon (long run 12 → 19 km) | 21.1 km (wk 42) |
 | 7 | 43–44 | Recovery | – |
 | 8 | 45–52 | Speed block and 5 km best | 5 km time trial + 10 km year-end run |
 
+The program is only running and walking, with no strength training or other sports.
 Every 4th week is a lighter (cut-back) week, and the long run grows by no more than about 10 % a week.
 
 The program doesn't depend on season, weather or a race calendar. You can start it on any day: every program week then
@@ -59,7 +60,7 @@ Your training log is not affected: it stays in each visitor's own browser.
 
 ## Editing the program
 
-The program lives in [`js/program.js`](js/program.js). Each day has a type (`rest | walk | run | speed | long | cross | goal`)
+The program lives in [`js/program.js`](js/program.js). Each day has a type (`rest | walk | run | speed | long | goal`)
 and Finnish and English text. After editing:
 
 ```sh

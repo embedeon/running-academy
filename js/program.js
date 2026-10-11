@@ -4,13 +4,14 @@
  * Weeks 1–11 are the original "Juoksuohjelma" (Porin kaupungin sivistystoimiala,
  * Liikuntayksikkö; lähde KuntoPlus 4/02), transcribed as-is.
  * Weeks 12–52 continue it with the same gradual progression:
+ * Only running and walking: no strength, cross-training or other workout forms.
  *   10 km -> habit & base -> speed -> 10 km time trial -> half marathon -> 5 km best.
  *
  * The program is independent of season, weather and location: every session works
  * on a treadmill or outside, and it can be started on any day.
  *
  * Each day: { type, fi, en }
- *   type: rest | walk | run | speed | long | cross | goal
+ *   type: rest | walk | run | speed | long | goal
  *
  * Plain script (no modules) so index.html also works when opened from disk.
  */
@@ -31,18 +32,6 @@
       : d('run',
           `Juokse rauhallisesti ${min} min. Vauhti niin kevyt, että pystyt puhumaan.`,
           `Easy ${min} min run at a conversational pace.`);
-  const strength = (min) =>
-    d('cross',
-      `Lihaskunto ${min} min: kyykyt, askelkyykyt, lankku, pohjenousut ja lantionnostot (3 kierrosta).`,
-      `Strength ${min} min: squats, lunges, plank, calf raises and glute bridges (3 rounds).`);
-  const crossTrain = (min) =>
-    d('cross',
-      `Vaihtoehtoinen liikunta ${min} min: pyöräily, uinti, soutu tai muu kestävyysliikunta.`,
-      `Cross-training ${min} min: cycling, swimming, rowing or other endurance exercise.`);
-  const mobility = (min) =>
-    d('cross',
-      `Liikkuvuus tai jooga ${min} min. Keskity lonkkiin, pohkeisiin ja takareisiin.`,
-      `Mobility or yoga ${min} min. Focus on hips, calves and hamstrings.`);
   const longMin = (min, fiExtra, enExtra) =>
     d('long',
       `Pitkä lenkki: juokse rauhallisesti ${min} min.${fiExtra ? ' ' + fiExtra : ''}`,
@@ -78,7 +67,7 @@
     { id: 4, weeks: [21, 24],
       fi: '10 km aika-ajo', en: '10 km time trial' },
     { id: 5, weeks: [25, 28],
-      fi: 'Palautuminen ja monipuolisuus', en: 'Recovery and variety' },
+      fi: 'Palautuminen ja peruskunto', en: 'Recovery and base' },
     { id: 6, weeks: [29, 42],
       fi: 'Puolimaraton', en: 'Half marathon' },
     { id: 7, weeks: [43, 44],
@@ -90,12 +79,12 @@
   // Notes shown above a week (optional).
   const WEEK_NOTES = {
     12: ['Palautumisviikko 10 km jälkeen.', 'Recovery week after the 10 km.'],
-    13: ['Neljä juoksua viikossa ja yksi lihaskuntoharjoitus.', 'Four runs a week plus one strength session.'],
+    13: ['Neljä juoksua ja yksi reipas kävely viikossa.', 'Four runs and one brisk walk a week.'],
     16: ['Kevennysviikko – keho vahvistuu levossa.', 'Cut-back week – your body gets stronger while resting.'],
     17: ['Mukaan tulevat mäkivedot ja rennot vedot.', 'Hill repeats and strides come in.'],
     20: ['Kevennysviikko ja 5 km testi.', 'Cut-back week and 5 km test.'],
     24: ['Aika-ajoviikko: 10 km!', 'Time trial week: 10 km!'],
-    25: ['Palautumista ja vaihtelua.', 'Recovery and variety.'],
+    25: ['Palautumista ja rauhallista juoksua.', 'Recovery and easy running.'],
     28: ['Kevennysviikko.', 'Cut-back week.'],
     29: ['14 viikkoa puolimaratoniin. Pitkä lenkki mitataan nyt kilometreinä.', '14 weeks to the half marathon. The long run is now measured in kilometres.'],
     32: ['Kevennysviikko.', 'Cut-back week.'],
@@ -251,16 +240,16 @@
         'Rest. You ran 10 km yesterday – you are a runner! Enjoy it.'),
       d('walk', 'Kävele rauhallisesti 30 min. Anna jalkojen palautua.', 'Easy 30 min walk. Let your legs recover.'),
       easy(20),
-      rest('Vapaa. Venyttele kevyesti illalla.', 'Rest. Some light stretching in the evening.'),
+      rest('Vapaa. Anna jalkojen levätä.', 'Rest. Let your legs rest.'),
       easy(30),
-      crossTrain(45),
+      walk(45),
       easy(40),
     ],
     /* 13 */ [
       rest('Vapaa. Uusi jakso alkaa: tehdään juoksusta pysyvä tapa.',
         'Rest. A new phase begins: making running a lasting habit.'),
       easy(30),
-      strength(20),
+      walk(30),
       d('run', 'Juokse 30 min. Viimeiset 5 min hieman reippaammin.', 'Run 30 min. The last 5 min a little faster.'),
       rest('Vapaa. Syö hyvin ja nuku riittävästi.', 'Rest. Eat well and get enough sleep.'),
       d('run', 'Juokse rauhallisesti 25 min ja kävele perään 15 min.', 'Easy 25 min run followed by a 15 min walk.'),
@@ -270,7 +259,7 @@
       rest('Vapaa. Nosta jalat ylös ja muistele, miltä ensimmäinen viikko tuntui.',
         'Rest. Put your feet up and remember how week 1 felt.'),
       easy(35),
-      strength(20),
+      walk(30),
       d('run', 'Juokse 35 min, josta keskellä 4 x 1 min reippaammin ja 2 min rauhallisesti välissä.',
         'Run 35 min with 4 x 1 min faster in the middle, 2 min easy in between.'),
       rest(),
@@ -280,7 +269,7 @@
     /* 15 */ [
       rest('Vapaa. Hyvä viikko takana!', 'Rest. A good week behind you!'),
       easy(35, 4),
-      strength(25),
+      walk(30),
       fartlek(40),
       rest('Vapaa. Tarkista, ovatko kenkäsi vielä hyvässä kunnossa.', 'Rest. Check whether your shoes are still in good shape.'),
       easy(30),
@@ -293,7 +282,7 @@
       walk(30),
       easy(30, 4),
       rest(),
-      crossTrain(45),
+      walk(45),
       longMin(45),
     ],
 
@@ -301,7 +290,7 @@
     /* 17 */ [
       rest('Vapaa. Tällä jaksolla mukaan tulevat mäkivedot ja rennot vedot.', 'Rest. This phase adds hill repeats and strides.'),
       easy(40, 6),
-      strength(25),
+      walk(30),
       hills(6, 30),
       rest(),
       easy(30),
@@ -310,7 +299,7 @@
     /* 18 */ [
       rest('Vapaa. Mäet tekevät sinusta vahvemman!', 'Rest. Hills make you stronger!'),
       easy(40),
-      strength(25),
+      walk(30),
       intervals('5 x 2 min reippaasti, 2 min hölkkä välissä', '5 x 2 min brisk with 2 min jog between'),
       rest(),
       easy(35),
@@ -319,7 +308,7 @@
     /* 19 */ [
       rest(),
       easy(45, 6),
-      strength(25),
+      walk(30),
       hills(8, 30),
       rest('Vapaa. Rentoudu ja lataa akkuja.', 'Rest. Relax and recharge.'),
       easy(35),
@@ -342,7 +331,7 @@
       rest('Vapaa. Seuraava tavoite: 10 km aika-ajo kolmen viikon päästä!',
         'Rest. Next goal: a 10 km time trial in three weeks!'),
       easy(45),
-      strength(25),
+      walk(30),
       tempo(15),
       rest(),
       easy(35, 4),
@@ -351,7 +340,7 @@
     /* 22 */ [
       rest(),
       easy(45),
-      strength(25),
+      walk(30),
       intervals('4 x 1 km 10 km:n tavoitevauhtia, 2 min hölkkä välissä', '4 x 1 km at 10 km goal pace with 2 min jog between'),
       rest('Vapaa. Juo riittävästi.', 'Rest. Stay hydrated.'),
       easy(40),
@@ -360,7 +349,7 @@
     /* 23 */ [
       rest(),
       easy(50, 6),
-      strength(20),
+      walk(30),
       tempo(20),
       rest(),
       easy(40),
@@ -378,13 +367,13 @@
         '10 km time trial! Start conservatively and speed up towards the end. Half a year ago you ran 2 min at a time!'),
     ],
 
-    // ---------------- Phase 5: Recovery and variety (25–28) ----------------
+    // ---------------- Phase 5: Recovery and base (25–28) ----------------
     /* 25 */ [
       rest('Vapaa. Nauti saavutuksestasi!', 'Rest. Enjoy your achievement!'),
       walk(30),
       easy(25),
       rest(),
-      crossTrain(45),
+      walk(45),
       easy(30),
       d('run', 'Juokse rauhallisesti 45 min. Nauti juoksemisesta ilman vauhtitavoitteita.',
         'Easy 45 min run. Enjoy running with no pace targets.'),
@@ -392,16 +381,16 @@
     /* 26 */ [
       rest(),
       easy(40),
-      strength(30),
+      walk(30),
       fartlek(40),
       rest(),
-      crossTrain(60),
+      walk(60),
       longMin(60),
     ],
     /* 27 */ [
       rest(),
       easy(45, 6),
-      strength(30),
+      walk(30),
       hills(8, 45),
       rest(),
       easy(40),
@@ -410,10 +399,10 @@
     /* 28 */ [
       rest('Vapaa. Kevennysviikko ennen puolimaratonjaksoa.', 'Rest. Cut-back week before the half marathon block.'),
       easy(35),
-      mobility(30),
+      walk(30),
       easy(35, 4),
       rest(),
-      crossTrain(45),
+      walk(45),
       longMin(60),
     ],
 
@@ -421,7 +410,7 @@
     /* 29 */ [
       rest('Vapaa. 14 viikkoa puolimaratoniin!', 'Rest. 14 weeks to the half marathon!'),
       easy(45),
-      strength(25),
+      walk(30),
       tempo(20),
       rest(),
       easy(40),
@@ -430,7 +419,7 @@
     /* 30 */ [
       rest(),
       easy(50),
-      strength(25),
+      walk(30),
       intervals('5 x 1 km reippaasti, 2 min hölkkä välissä', '5 x 1 km brisk with 2 min jog between'),
       rest(),
       easy(40),
@@ -439,16 +428,16 @@
     /* 31 */ [
       rest(),
       easy(50, 6),
-      strength(25),
+      walk(30),
       tempo(25),
-      rest('Vapaa. Kokeile tänään venyttelyä tai rullausta.', 'Rest. Try some stretching or foam rolling today.'),
+      rest('Vapaa. Lepo on osa harjoittelua.', 'Rest. Rest is part of training.'),
       easy(45),
       longKm(14),
     ],
     /* 32 */ [
       rest('Vapaa. Kevennysviikko.', 'Rest. Cut-back week.'),
       easy(40),
-      mobility(30),
+      walk(30),
       easy(40, 4),
       rest(),
       easy(30),
@@ -457,7 +446,7 @@
     /* 33 */ [
       rest(),
       easy(50),
-      strength(25),
+      walk(30),
       intervals('3 x 2 km puolimaratonvauhtia, 3 min hölkkä välissä', '3 x 2 km at half marathon pace with 3 min jog between'),
       rest(),
       easy(45),
@@ -466,7 +455,7 @@
     /* 34 */ [
       rest(),
       easy(55),
-      strength(25),
+      walk(30),
       hills(10, 45),
       rest(),
       easy(45),
@@ -475,7 +464,7 @@
     /* 35 */ [
       rest(),
       easy(55, 6),
-      strength(25),
+      walk(30),
       tempo(30),
       rest(),
       easy(45),
@@ -484,7 +473,7 @@
     /* 36 */ [
       rest('Vapaa. Kevennysviikko – olet tehnyt kovaa työtä.', 'Rest. Cut-back week – you have worked hard.'),
       easy(40),
-      crossTrain(30),
+      walk(30),
       easy(40, 4),
       rest(),
       easy(35),
@@ -493,7 +482,7 @@
     /* 37 */ [
       rest(),
       easy(55),
-      strength(25),
+      walk(30),
       intervals('6 x 1 km 10 km:n vauhtia, 2 min hölkkä välissä', '6 x 1 km at 10 km pace with 2 min jog between'),
       rest(),
       easy(45),
@@ -502,7 +491,7 @@
     /* 38 */ [
       rest(),
       easy(60),
-      strength(25),
+      walk(30),
       d('speed', 'Tempojuoksu: lämmittele 10 min, 2 x 15 min reipasta vauhtia (3 min hölkkä välissä), loppuverryttely 10 min.',
         'Tempo: 10 min warm-up, 2 x 15 min comfortably hard (3 min jog between), 10 min cool-down.'),
       rest(),
@@ -512,7 +501,7 @@
     /* 39 */ [
       rest(),
       easy(60, 6),
-      strength(25),
+      walk(30),
       intervals('3 x 3 km puolimaratonvauhtia, 3 min hölkkä välissä', '3 x 3 km at half marathon pace with 3 min jog between'),
       rest(),
       easy(45),
@@ -521,7 +510,7 @@
     /* 40 */ [
       rest('Vapaa. Keventely alkaa – luota tekemääsi työhön.', 'Rest. The taper begins – trust the work you have done.'),
       easy(50),
-      strength(20),
+      walk(30),
       tempo(20),
       rest(),
       easy(40),
@@ -530,7 +519,7 @@
     /* 41 */ [
       rest(),
       easy(45, 6),
-      crossTrain(30),
+      walk(30),
       intervals('2 x 2 km puolimaratonvauhtia, 3 min hölkkä välissä', '2 x 2 km at half marathon pace with 3 min jog between'),
       rest('Vapaa. Suunnittele puolimaratonpäivän ruokailu ja juominen.', 'Rest. Plan your eating and drinking for half marathon day.'),
       easy(30),
@@ -554,17 +543,17 @@
       walk(30),
       rest(),
       easy(20),
-      crossTrain(30),
+      walk(30),
       easy(30),
       easy(40),
     ],
     /* 44 */ [
       rest(),
       easy(35),
-      strength(30),
+      walk(30),
       easy(40, 4),
       rest(),
-      crossTrain(45),
+      walk(45),
       longMin(60),
     ],
 
@@ -572,7 +561,7 @@
     /* 45 */ [
       rest('Vapaa. Viimeinen jakso: haetaan vauhtia 5 km:lle.', 'Rest. Final phase: building speed for 5 km.'),
       easy(45),
-      strength(25),
+      walk(30),
       intervals('8 x 400 m reippaasti, 90 s hölkkä välissä', '8 x 400 m fast with 90 s jog between'),
       rest(),
       easy(40),
@@ -581,7 +570,7 @@
     /* 46 */ [
       rest(),
       easy(45, 6),
-      strength(25),
+      walk(30),
       tempo(20),
       rest(),
       easy(40),
@@ -590,7 +579,7 @@
     /* 47 */ [
       rest(),
       easy(50),
-      strength(25),
+      walk(30),
       intervals('5 x 1 km 5 km:n vauhtia, 2 min hölkkä välissä', '5 x 1 km at 5 km pace with 2 min jog between'),
       rest(),
       easy(40),
@@ -599,7 +588,7 @@
     /* 48 */ [
       rest('Vapaa. Kevennysviikko.', 'Rest. Cut-back week.'),
       easy(40),
-      crossTrain(30),
+      walk(30),
       easy(35, 4),
       rest(),
       easy(30),
@@ -608,7 +597,7 @@
     /* 49 */ [
       rest(),
       easy(50),
-      strength(25),
+      walk(30),
       intervals('6 x 800 m 5 km:n vauhtia, 2 min hölkkä välissä', '6 x 800 m at 5 km pace with 2 min jog between'),
       rest(),
       easy(40),
@@ -617,7 +606,7 @@
     /* 50 */ [
       rest(),
       easy(50, 6),
-      strength(25),
+      walk(30),
       tempo(25),
       rest('Vapaa. Hyvä palautuminen on osa harjoittelua.', 'Rest. Good recovery is part of training.'),
       easy(40),
@@ -626,7 +615,7 @@
     /* 51 */ [
       rest(),
       easy(40),
-      strength(20),
+      walk(30),
       intervals('3 x 1 km 5 km:n vauhtia, 3 min hölkkä välissä', '3 x 1 km at 5 km pace with 3 min jog between'),
       rest(),
       easy(30),

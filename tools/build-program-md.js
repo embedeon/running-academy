@@ -11,8 +11,8 @@ out += '> Generoitu tiedostosta `js/program.js` (`node tools/build-program-md.js
 out += P.source + ' Viikot 12–52 ovat jatko-ohjelma.\n\n';
 out += 'Taulukko olettaa aloituksen maanantaina. Ohjelman voi aloittaa minä päivänä tahansa – viikko alkaa silloin aloituspäivän viikonpäivästä. '
   + 'Kaikki harjoitukset sopivat sekä juoksumatolle että ulos.\n\n';
-out += 'Tyypit: 🛌 lepo · 🚶 kävely · 🏃 juoksu · ⚡ vauhti · 🛣️ pitkä lenkki · 💪 oheisharjoitus · 🏁 tavoite/testi\n\n';
-const icon = { rest: '🛌', walk: '🚶', run: '🏃', speed: '⚡', long: '🛣️', cross: '💪', goal: '🏁' };
+out += 'Tyypit: 🛌 lepo · 🚶 kävely · 🏃 juoksu · ⚡ vauhti · 🛣️ pitkä lenkki · 🏁 tavoite/testi\n\n';
+const icon = { rest: '🛌', walk: '🚶', run: '🏃', speed: '⚡', long: '🛣️', goal: '🏁' };
 
 for (const ph of P.phases) {
   out += `## ${ph.id}. ${ph.fi} (viikot ${ph.weeks[0]}–${ph.weeks[1]})\n\n`;
