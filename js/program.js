@@ -57,8 +57,8 @@
       `Tempo run: 10 min warm-up, ${min} min comfortably hard steady pace, 10 min cool-down.`);
   const hills = (n, sec) =>
     d('speed',
-      `Nousuvedot: lämmittele 15 min, juokse ${n} x ${sec} s reippaasti nousuun ja palaudu 1–2 min kävellen tai hölkäten. Loppuverryttely 10 min.`,
-      `Incline repeats: 15 min warm-up, ${n} x ${sec} s brisk on an incline, recover 1–2 min walking or jogging. 10 min cool-down.`);
+      `Mäkiharjoitus: lämmittele 15 min, juokse ${n} x ${sec} s reippaasti ylämäkeen ja palaudu 1–2 min kävellen tai hölkäten. Loppuverryttely 10 min.`,
+      `Hill repeats: 15 min warm-up, ${n} x ${sec} s brisk uphill, recover 1–2 min walking or jogging. 10 min cool-down.`);
   const intervals = (fiMain, enMain) =>
     d('speed',
       `Intervallit: lämmittele 15 min, ${fiMain}. Loppuverryttely 10 min.`,
@@ -74,7 +74,7 @@
     { id: 2, weeks: [12, 16],
       fi: 'Juoksusta tapa', en: 'Making running a habit' },
     { id: 3, weeks: [17, 20],
-      fi: 'Vauhtia ja nousuja', en: 'Speed and inclines' },
+      fi: 'Vauhtia ja mäkiä', en: 'Speed and hills' },
     { id: 4, weeks: [21, 24],
       fi: '10 km aika-ajo', en: '10 km time trial' },
     { id: 5, weeks: [25, 28],
@@ -92,7 +92,7 @@
     12: ['Palautumisviikko 10 km jälkeen.', 'Recovery week after the 10 km.'],
     13: ['Neljä juoksua viikossa ja yksi lihaskuntoharjoitus.', 'Four runs a week plus one strength session.'],
     16: ['Kevennysviikko – keho vahvistuu levossa.', 'Cut-back week – your body gets stronger while resting.'],
-    17: ['Mukaan tulevat nousuvedot ja rennot vedot.', 'Incline repeats and strides come in.'],
+    17: ['Mukaan tulevat mäkivedot ja rennot vedot.', 'Hill repeats and strides come in.'],
     20: ['Kevennysviikko ja 5 km testi.', 'Cut-back week and 5 km test.'],
     24: ['Aika-ajoviikko: 10 km!', 'Time trial week: 10 km!'],
     25: ['Palautumista ja vaihtelua.', 'Recovery and variety.'],
@@ -297,9 +297,9 @@
       longMin(45),
     ],
 
-    // ---------------- Phase 3: Speed and inclines (17–20) ----------------
+    // ---------------- Phase 3: Speed and hills (17–20) ----------------
     /* 17 */ [
-      rest('Vapaa. Tällä jaksolla mukaan tulevat nousuvedot ja rennot vedot.', 'Rest. This phase adds incline repeats and strides.'),
+      rest('Vapaa. Tällä jaksolla mukaan tulevat mäkivedot ja rennot vedot.', 'Rest. This phase adds hill repeats and strides.'),
       easy(40, 6),
       strength(25),
       hills(6, 30),
@@ -308,7 +308,7 @@
       longMin(65),
     ],
     /* 18 */ [
-      rest('Vapaa. Nousut tekevät sinusta vahvemman!', 'Rest. Inclines make you stronger!'),
+      rest('Vapaa. Mäet tekevät sinusta vahvemman!', 'Rest. Hills make you stronger!'),
       easy(40),
       strength(25),
       intervals('5 x 2 min reippaasti, 2 min hölkkä välissä', '5 x 2 min brisk with 2 min jog between'),

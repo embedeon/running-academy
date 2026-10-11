@@ -10,7 +10,7 @@ A small web app that takes you from walking to running in one year, with progres
 |---|---|---|---|
 | 1 | 1–11 | From walking to running | 10 km |
 | 2 | 12–16 | Making running a habit (4 runs + strength) | 60 min long run |
-| 3 | 17–20 | Speed and inclines | 5 km test (wk 20) |
+| 3 | 17–20 | Speed and hills | 5 km test (wk 20) |
 | 4 | 21–24 | 10 km time trial | 10 km time trial (wk 24) |
 | 5 | 25–28 | Recovery and variety | – |
 | 6 | 29–42 | Half marathon (long run 12 → 19 km) | 21.1 km (wk 42) |

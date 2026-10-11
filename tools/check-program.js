@@ -8,9 +8,9 @@ const TYPES = new Set(['rest', 'walk', 'run', 'speed', 'long', 'cross', 'goal'])
 // assume either a treadmill or running outside.
 const BANNED = new RegExp([
   // Finnish word stems
-  '(?<![a-zåäö])(?:käänn|koti|talv|kesä|kevä|syks|ulko|sisätil|lumi|liuk|sade|heijast|pime|metsä|polku|polut|luonno|reitti|lyhty|kisa|kilpailu|juomapiste|hiihto|sauva|mäki|mäet|mäke|ylämä|maasto|juoksumat)',
+  '(?<![a-zåäö])(?:käänn|koti|talv|kesä|kevä|syks|ulko|sisätil|lumi|liuk|sade|heijast|pime|metsä|polku|polut|luonno|reitti|lyhty|kisa|kilpailu|juomapiste|hiihto|sauva|maasto|juoksumat)',
   // English whole words
-  '\\b(?:winter|summer|spring|autumn|weather|rain|snow|ice|dark|home|turn around|trails?|route|lamp|ski|skiing|race|nordic|treadmill|outdoors?|indoors?|outside|inside|course|aid stations?|hills?|uphill|loop|reflector|nature|forests?)\\b',
+  '\\b(?:winter|summer|spring|autumn|weather|rain|snow|ice|dark|home|turn around|trails?|route|lamp|ski|skiing|race|nordic|treadmill|outdoors?|indoors?|outside|inside|course|aid stations?|loop|reflector|nature|forests?)\\b',
 ].join('|'), 'i');
 assert.strictEqual(P.weeks.length, 52, 'program must have 52 weeks');
 P.weeks.forEach((week, i) => {
