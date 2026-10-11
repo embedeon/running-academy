@@ -68,4 +68,5 @@ and Finnish and English text. After editing:
 ```sh
 node tools/check-program.js      # checks for 52 weeks × 7 days, valid types and phases
 node tools/build-program-md.js   # rebuilds PROGRAM.md
+node tools/build-icons.js        # re-renders icon.svg and the home-screen PNGs in icons/
 ```

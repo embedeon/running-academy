@@ -1,6 +1,7 @@
 // Network-first service worker: always fresh when online, cached copy when offline.
-const CACHE = 'juoksukoulu-v1';
-const ASSETS = ['./', 'index.html', 'css/style.css', 'js/program.js', 'js/app.js', 'icon.svg', 'manifest.webmanifest'];
+const CACHE = 'juoksukoulu-v2';
+const ASSETS = ['./', 'index.html', 'css/style.css', 'js/program.js', 'js/app.js', 'icon.svg', 'manifest.webmanifest',
+  'icons/apple-touch-icon.png', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/maskable-512.png'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting()));
