@@ -41,7 +41,15 @@ Open `index.html` directly, or serve the folder:
 python3 -m http.server 8000   # http://localhost:8000
 ```
 
-To host it, any static host works (e.g. GitHub Pages from the repository root).
+### GitHub Pages
+
+`.github/workflows/pages.yml` checks the program data and publishes the app on every push to the default branch
+(pushes to other branches only run the checks). One-time setup: **Settings → Pages → Build and deployment →
+Source: GitHub Actions**. Then re-run the workflow (Actions → *Deploy to GitHub Pages* → *Run workflow*).
+The app will be at `https://embedeon.github.io/running-academy/`.
+
+Pages for a private repository needs a paid GitHub plan, and the published site is public either way.
+Your training log is not affected: it stays in each visitor's own browser.
 
 ## Editing the program
 
