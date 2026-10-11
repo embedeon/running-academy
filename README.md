@@ -1,0 +1,53 @@
+# Juoksukoulu – Running School
+
+A small web app that takes you from walking to running in one year, with progress tracking.
+
+- **Weeks 1–11** are the original *Juoksuohjelma* (City of Pori sports unit, source KuntoPlus 4/02), copied word for word:
+  walk/run intervals that build up to 5 km (week 6) and 10 km (week 11).
+- **Weeks 12–52** continue with the same gradual build-up:
+
+| Phase | Weeks | Focus | Peak |
+|---|---|---|---|
+| 1 | 1–11 | From walking to running | 10 km |
+| 2 | 12–16 | Making running a habit (4 runs + strength) | 60 min long run |
+| 3 | 17–20 | Speed and hills | 5 km test (wk 20) |
+| 4 | 21–24 | 10 km race | 10 km race (wk 24) |
+| 5 | 25–28 | Recovery and variety | – |
+| 6 | 29–42 | Half marathon (long run 12 → 19 km) | 21.1 km (wk 42) |
+| 7 | 43–44 | Recovery | – |
+| 8 | 45–52 | Winter season and 5 km best | 5 km time trial + 10 km year-end run |
+
+Every 4th week is a lighter (cut-back) week, and the long run grows by no more than about 10 % a week.
+The whole year as a printable table is in [`PROGRAM.md`](PROGRAM.md), in Finnish.
+
+## The app
+
+- **Today:** today's workout, buttons for done or skipped, a note field (distance, time, how it felt), and the rest of the week.
+- **Plan:** all 52 weeks laid out like the original paper table. A finished day gets a red cross, as if marked with a pen.
+  Tap any day to mark it or add a note.
+- **Progress:** workouts done, how much of the plan is done so far, streak of full weeks, week heatmap, milestones and phases.
+- **Settings:** start date, or "I am currently on week N"; a button to mark all earlier days as done (useful if you
+  already followed the paper version); JSON backup export and import; Finnish/English.
+
+Data is stored in the browser's `localStorage`. The app has no backend, no build step and no dependencies. It works
+offline and can be installed on a phone's home screen (PWA).
+
+## Running it
+
+Open `index.html` directly, or serve the folder:
+
+```sh
+python3 -m http.server 8000   # http://localhost:8000
+```
+
+To host it, any static host works (e.g. GitHub Pages from the repository root).
+
+## Editing the program
+
+The program lives in [`js/program.js`](js/program.js). Each day has a type (`rest | walk | run | speed | long | cross | race`)
+and Finnish and English text. After editing:
+
+```sh
+node tools/check-program.js      # checks for 52 weeks × 7 days, valid types and phases
+node tools/build-program-md.js   # rebuilds PROGRAM.md
+```

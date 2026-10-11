@@ -1,0 +1,13 @@
+{
+  "name": "Juoksukoulu",
+  "short_name": "Juoksukoulu",
+  "description": "Vuoden juoksuohjelma ja edistymisen seuranta.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f7fb",
+  "theme_color": "#0b5cad",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

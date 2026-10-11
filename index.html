@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Juoksukoulu</title>
+  <meta name="description" content="Juoksukoulu – vuoden juoksuohjelma ja edistymisen seuranta.">
+  <meta name="theme-color" content="#0b5cad">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img src="icon.svg" alt="" width="28" height="28">
+      <span data-i18n="appName">Juoksukoulu</span>
+    </div>
+    <button id="langToggle" class="lang" type="button" aria-label="Language">EN</button>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" data-view="today" aria-selected="true" data-i18n="tabToday">Tänään</button>
+    <button role="tab" data-view="plan" data-i18n="tabPlan">Ohjelma</button>
+    <button role="tab" data-view="progress" data-i18n="tabProgress">Edistyminen</button>
+    <button role="tab" data-view="settings" data-i18n="tabSettings">Asetukset</button>
+  </nav>
+
+  <main>
+    <section id="view-today" class="view" aria-live="polite"></section>
+    <section id="view-plan" class="view" hidden></section>
+    <section id="view-progress" class="view" hidden></section>
+    <section id="view-settings" class="view" hidden></section>
+  </main>
+
+  <dialog id="dayDialog">
+    <form method="dialog" class="dialog-body">
+      <p class="dialog-meta" id="dlgMeta"></p>
+      <p class="dialog-type" id="dlgType"></p>
+      <p class="dialog-text" id="dlgText"></p>
+      <label class="field">
+        <span data-i18n="note">Muistiinpano (esim. matka, aika, fiilis)</span>
+        <textarea id="dlgNote" rows="3"></textarea>
+      </label>
+      <div class="dialog-actions">
+        <button value="done" class="btn primary" data-i18n="markDone">Tehty ✓</button>
+        <button value="skipped" class="btn" data-i18n="markSkipped">Väliin jäi</button>
+        <button value="clear" class="btn ghost" data-i18n="clear">Tyhjennä</button>
+        <button value="cancel" class="btn ghost" data-i18n="close">Sulje</button>
+      </div>
+    </form>
+  </dialog>
+
+  <footer class="footer">
+    <span data-i18n="sourceNote">Viikot 1–11: Porin kaupungin liikuntayksikkö (KuntoPlus 4/02).</span>
+  </footer>
+
+  <script src="js/program.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
