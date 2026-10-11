@@ -20,9 +20,9 @@ A small web app that takes you from walking to running in one year, with progres
 Every 4th week is a lighter (cut-back) week, and the long run grows by no more than about 10 % a week.
 
 The program doesn't depend on season, weather or a race calendar. You can start it on any day: day 1 is the start
-date and every program week runs day 1–7 from there. Every session works on a treadmill or outside. Weeks 1–11 were
-originally written as out-and-back routes ("turn around and walk home"), so they are rewritten as continuous sessions
-with the same walking and running minutes. The goals are time trials you run yourself, not races on fixed dates.
+date and every program week runs day 1–7 from there. Every session works on a treadmill or outside. In weeks 1–11 the
+original wording is kept; only "turn around … home" is shortened to "back" (e.g. "Juokse 5 km ja vielä 5 min.
+Kävele takaisin."). The goals are time trials you run yourself, not races on fixed dates.
 `tools/check-program.js` fails if season-, weather-, route- or race-specific wording slips back in.
 The whole year as a printable table is in [`PROGRAM.md`](PROGRAM.md), in Finnish.
 
