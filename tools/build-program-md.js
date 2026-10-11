@@ -4,12 +4,12 @@ const fs = require('fs');
 const path = require('path');
 const P = require('../js/program.js');
 
-const DAYS = ['P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7'];
+const DAYS = ['Ma', 'Ti', 'Ke', 'To', 'Pe', 'La', 'Su'];
 const cell = (s) => s.replace(/\|/g, '\\|');
 let out = '# Juoksuohjelma – 52 viikkoa\n\n';
 out += '> Generoitu tiedostosta `js/program.js` (`node tools/build-program-md.js`). ';
 out += P.source + ' Viikot 12–52 ovat jatko-ohjelma.\n\n';
-out += 'Ohjelman voi aloittaa minä päivänä tahansa: P1 on aloituspäivä, P2 sitä seuraava jne. '
+out += 'Taulukko olettaa aloituksen maanantaina. Ohjelman voi aloittaa minä päivänä tahansa – viikko alkaa silloin aloituspäivän viikonpäivästä. '
   + 'Kaikki harjoitukset sopivat sekä juoksumatolle että ulos.\n\n';
 out += 'Tyypit: 🛌 lepo · 🚶 kävely · 🏃 juoksu · ⚡ vauhti · 🛣️ pitkä lenkki · 💪 oheisharjoitus · 🏁 tavoite/testi\n\n';
 const icon = { rest: '🛌', walk: '🚶', run: '🏃', speed: '⚡', long: '🛣️', cross: '💪', goal: '🏁' };

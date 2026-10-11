@@ -2,13 +2,13 @@
 
 > Generoitu tiedostosta `js/program.js` (`node tools/build-program-md.js`). Viikot 1–11: Porin kaupungin sivistystoimiala, Liikuntayksikkö (lähde KuntoPlus 4/02). Viikot 12–52 ovat jatko-ohjelma.
 
-Ohjelman voi aloittaa minä päivänä tahansa: P1 on aloituspäivä, P2 sitä seuraava jne. Kaikki harjoitukset sopivat sekä juoksumatolle että ulos.
+Taulukko olettaa aloituksen maanantaina. Ohjelman voi aloittaa minä päivänä tahansa – viikko alkaa silloin aloituspäivän viikonpäivästä. Kaikki harjoitukset sopivat sekä juoksumatolle että ulos.
 
 Tyypit: 🛌 lepo · 🚶 kävely · 🏃 juoksu · ⚡ vauhti · 🛣️ pitkä lenkki · 💪 oheisharjoitus · 🏁 tavoite/testi
 
 ## 1. Kävelystä juoksuun – 10 km (viikot 1–11)
 
-| Vko | P1 | P2 | P3 | P4 | P5 | P6 | P7 |
+| Vko | Ma | Ti | Ke | To | Pe | La | Su |
 |---|---|---|---|---|---|---|---|
 | **1** | 🏃 Kävele 5 min, juokse 2 min. Pidä pieni tauko ja toista: kävele 5 min, juokse 2 min. | 🚶 Kävele 30 min lenkki. | 🛌 Pidä vapaapäivä, nosta jalat vähäksi aikaa ylös. | 🏃 Kävele 5 min, juokse 2 min. Pidä pieni tauko ja toista: kävele 5 min, juokse 2 min. | 🏃 Kävele reippaasti 5 min, juokse 2–3 min. Kävele takaisin. | 🛌 Pidä vapaapäivä tai käy rauhallisella kävelyllä. | 🏃 Kävele 5 min, juokse 2 min. Pidä pieni tauko ja toista: kävele 5 min, juokse 2 min. |
 | **2** | 🚶 Tee vähintään 30 min reipas kävelylenkki. | 🏃 Kävele 5 min, juokse 4 min. Toista vielä kerran: kävele 5 min, juokse 4 min. | 🛌 Vapaapäivä. Voit katsella vaikka videoita ja napostella hieman karkkia, olet sen ansainnut. | 🏃 Kävele 3 min, juokse 4 min. Pidä pieni tauko, juokse 4 min ja kävele 3 min. | 🏃 Kävele 5 min rauhallisesti, juokse 4 min. Toista vielä kerran. | 🚶 Kävele vähintään 45 min niin, että hikoilet hieman. | 🛌 Vapaa. Hemmottele itseäsi, sillä ansaitset sen. |
@@ -24,7 +24,7 @@ Tyypit: 🛌 lepo · 🚶 kävely · 🏃 juoksu · ⚡ vauhti · 🛣️ pitkä
 
 ## 2. Juoksusta tapa (viikot 12–16)
 
-| Vko | P1 | P2 | P3 | P4 | P5 | P6 | P7 |
+| Vko | Ma | Ti | Ke | To | Pe | La | Su |
 |---|---|---|---|---|---|---|---|
 | **12**<br>_Palautumisviikko 10 km jälkeen._ | 🛌 Vapaa. Juoksit eilen 10 km – olet juoksija! Nauti onnistumisesta. | 🚶 Kävele rauhallisesti 30 min. Anna jalkojen palautua. | 🏃 Juokse rauhallisesti 20 min. Vauhti niin kevyt, että pystyt puhumaan. | 🛌 Vapaa. Venyttele kevyesti illalla. | 🏃 Juokse rauhallisesti 30 min. Vauhti niin kevyt, että pystyt puhumaan. | 💪 Vaihtoehtoinen liikunta 45 min: pyöräily, uinti, soutu tai muu kestävyysliikunta. | 🏃 Juokse rauhallisesti 40 min. Vauhti niin kevyt, että pystyt puhumaan. |
 | **13**<br>_Neljä juoksua viikossa ja yksi lihaskuntoharjoitus._ | 🛌 Vapaa. Uusi jakso alkaa: tehdään juoksusta pysyvä tapa. | 🏃 Juokse rauhallisesti 30 min. Vauhti niin kevyt, että pystyt puhumaan. | 💪 Lihaskunto 20 min: kyykyt, askelkyykyt, lankku, pohjenousut ja lantionnostot (3 kierrosta). | 🏃 Juokse 30 min. Viimeiset 5 min hieman reippaammin. | 🛌 Vapaa. Syö hyvin ja nuku riittävästi. | 🏃 Juokse rauhallisesti 25 min ja kävele perään 15 min. | 🛣️ Pitkä lenkki: juokse rauhallisesti 50 min. |
@@ -34,7 +34,7 @@ Tyypit: 🛌 lepo · 🚶 kävely · 🏃 juoksu · ⚡ vauhti · 🛣️ pitkä
 
 ## 3. Vauhtia ja mäkiä (viikot 17–20)
 
-| Vko | P1 | P2 | P3 | P4 | P5 | P6 | P7 |
+| Vko | Ma | Ti | Ke | To | Pe | La | Su |
 |---|---|---|---|---|---|---|---|
 | **17**<br>_Mukaan tulevat mäkivedot ja rennot vedot._ | 🛌 Vapaa. Tällä jaksolla mukaan tulevat mäkivedot ja rennot vedot. | 🏃 Juokse rauhallisesti 40 min ja lopuksi 6 x 20 s rennot vedot. | 💪 Lihaskunto 25 min: kyykyt, askelkyykyt, lankku, pohjenousut ja lantionnostot (3 kierrosta). | ⚡ Mäkiharjoitus: lämmittele 15 min, juokse 6 x 30 s reippaasti ylämäkeen ja palaudu 1–2 min kävellen tai hölkäten. Loppuverryttely 10 min. | 🛌 Vapaa. | 🏃 Juokse rauhallisesti 30 min. Vauhti niin kevyt, että pystyt puhumaan. | 🛣️ Pitkä lenkki: juokse rauhallisesti 65 min. |
 | **18** | 🛌 Vapaa. Mäet tekevät sinusta vahvemman! | 🏃 Juokse rauhallisesti 40 min. Vauhti niin kevyt, että pystyt puhumaan. | 💪 Lihaskunto 25 min: kyykyt, askelkyykyt, lankku, pohjenousut ja lantionnostot (3 kierrosta). | ⚡ Intervallit: lämmittele 15 min, 5 x 2 min reippaasti, 2 min hölkkä välissä. Loppuverryttely 10 min. | 🛌 Vapaa. | 🏃 Juokse rauhallisesti 35 min. Vauhti niin kevyt, että pystyt puhumaan. | 🛣️ Pitkä lenkki: juokse rauhallisesti 70 min. |
@@ -43,7 +43,7 @@ Tyypit: 🛌 lepo · 🚶 kävely · 🏃 juoksu · ⚡ vauhti · 🛣️ pitkä
 
 ## 4. 10 km aika-ajo (viikot 21–24)
 
-| Vko | P1 | P2 | P3 | P4 | P5 | P6 | P7 |
+| Vko | Ma | Ti | Ke | To | Pe | La | Su |
 |---|---|---|---|---|---|---|---|
 | **21** | 🛌 Vapaa. Seuraava tavoite: 10 km aika-ajo kolmen viikon päästä! | 🏃 Juokse rauhallisesti 45 min. Vauhti niin kevyt, että pystyt puhumaan. | 💪 Lihaskunto 25 min: kyykyt, askelkyykyt, lankku, pohjenousut ja lantionnostot (3 kierrosta). | ⚡ Tempojuoksu: lämmittele 10 min, juokse 15 min reipasta tasaista vauhtia (puhe katkeilee), loppuverryttely 10 min. | 🛌 Vapaa. | 🏃 Juokse rauhallisesti 35 min ja lopuksi 4 x 20 s rennot vedot. | 🛣️ Pitkä lenkki: juokse rauhallisesti 80 min. |
 | **22** | 🛌 Vapaa. | 🏃 Juokse rauhallisesti 45 min. Vauhti niin kevyt, että pystyt puhumaan. | 💪 Lihaskunto 25 min: kyykyt, askelkyykyt, lankku, pohjenousut ja lantionnostot (3 kierrosta). | ⚡ Intervallit: lämmittele 15 min, 4 x 1 km 10 km:n tavoitevauhtia, 2 min hölkkä välissä. Loppuverryttely 10 min. | 🛌 Vapaa. Juo riittävästi. | 🏃 Juokse rauhallisesti 40 min. Vauhti niin kevyt, että pystyt puhumaan. | 🛣️ Pitkä lenkki: juokse rauhallisesti 85 min. |
@@ -52,7 +52,7 @@ Tyypit: 🛌 lepo · 🚶 kävely · 🏃 juoksu · ⚡ vauhti · 🛣️ pitkä
 
 ## 5. Palautuminen ja monipuolisuus (viikot 25–28)
 
-| Vko | P1 | P2 | P3 | P4 | P5 | P6 | P7 |
+| Vko | Ma | Ti | Ke | To | Pe | La | Su |
 |---|---|---|---|---|---|---|---|
 | **25**<br>_Palautumista ja vaihtelua._ | 🛌 Vapaa. Nauti saavutuksestasi! | 🚶 Kävele reippaasti 30 min. | 🏃 Juokse rauhallisesti 25 min. Vauhti niin kevyt, että pystyt puhumaan. | 🛌 Vapaa. | 💪 Vaihtoehtoinen liikunta 45 min: pyöräily, uinti, soutu tai muu kestävyysliikunta. | 🏃 Juokse rauhallisesti 30 min. Vauhti niin kevyt, että pystyt puhumaan. | 🏃 Juokse rauhallisesti 45 min. Nauti juoksemisesta ilman vauhtitavoitteita. |
 | **26** | 🛌 Vapaa. | 🏃 Juokse rauhallisesti 40 min. Vauhti niin kevyt, että pystyt puhumaan. | 💪 Lihaskunto 30 min: kyykyt, askelkyykyt, lankku, pohjenousut ja lantionnostot (3 kierrosta). | ⚡ Vauhtileikittely 40 min: juokse välillä reippaammin esim. 30–60 s kerrallaan, ja palaudu hölkäten. | 🛌 Vapaa. | 💪 Vaihtoehtoinen liikunta 60 min: pyöräily, uinti, soutu tai muu kestävyysliikunta. | 🛣️ Pitkä lenkki: juokse rauhallisesti 60 min. |
@@ -61,7 +61,7 @@ Tyypit: 🛌 lepo · 🚶 kävely · 🏃 juoksu · ⚡ vauhti · 🛣️ pitkä
 
 ## 6. Puolimaraton (viikot 29–42)
 
-| Vko | P1 | P2 | P3 | P4 | P5 | P6 | P7 |
+| Vko | Ma | Ti | Ke | To | Pe | La | Su |
 |---|---|---|---|---|---|---|---|
 | **29**<br>_14 viikkoa puolimaratoniin. Pitkä lenkki mitataan nyt kilometreinä._ | 🛌 Vapaa. 14 viikkoa puolimaratoniin! | 🏃 Juokse rauhallisesti 45 min. Vauhti niin kevyt, että pystyt puhumaan. | 💪 Lihaskunto 25 min: kyykyt, askelkyykyt, lankku, pohjenousut ja lantionnostot (3 kierrosta). | ⚡ Tempojuoksu: lämmittele 10 min, juokse 20 min reipasta tasaista vauhtia (puhe katkeilee), loppuverryttely 10 min. | 🛌 Vapaa. | 🏃 Juokse rauhallisesti 40 min. Vauhti niin kevyt, että pystyt puhumaan. | 🛣️ Pitkä lenkki: juokse rauhallisesti 12 km. |
 | **30** | 🛌 Vapaa. | 🏃 Juokse rauhallisesti 50 min. Vauhti niin kevyt, että pystyt puhumaan. | 💪 Lihaskunto 25 min: kyykyt, askelkyykyt, lankku, pohjenousut ja lantionnostot (3 kierrosta). | ⚡ Intervallit: lämmittele 15 min, 5 x 1 km reippaasti, 2 min hölkkä välissä. Loppuverryttely 10 min. | 🛌 Vapaa. | 🏃 Juokse rauhallisesti 40 min. Vauhti niin kevyt, että pystyt puhumaan. | 🛣️ Pitkä lenkki: juokse rauhallisesti 13 km. |
@@ -80,14 +80,14 @@ Tyypit: 🛌 lepo · 🚶 kävely · 🏃 juoksu · ⚡ vauhti · 🛣️ pitkä
 
 ## 7. Palautuminen (viikot 43–44)
 
-| Vko | P1 | P2 | P3 | P4 | P5 | P6 | P7 |
+| Vko | Ma | Ti | Ke | To | Pe | La | Su |
 |---|---|---|---|---|---|---|---|
 | **43**<br>_Palautumisviikko._ | 🛌 Vapaa. Olet puolimaratoonari! Lepää hyvällä omallatunnolla. | 🚶 Kävele reippaasti 30 min. | 🛌 Vapaa. | 🏃 Juokse rauhallisesti 20 min. Vauhti niin kevyt, että pystyt puhumaan. | 💪 Vaihtoehtoinen liikunta 30 min: pyöräily, uinti, soutu tai muu kestävyysliikunta. | 🏃 Juokse rauhallisesti 30 min. Vauhti niin kevyt, että pystyt puhumaan. | 🏃 Juokse rauhallisesti 40 min. Vauhti niin kevyt, että pystyt puhumaan. |
 | **44** | 🛌 Vapaa. | 🏃 Juokse rauhallisesti 35 min. Vauhti niin kevyt, että pystyt puhumaan. | 💪 Lihaskunto 30 min: kyykyt, askelkyykyt, lankku, pohjenousut ja lantionnostot (3 kierrosta). | 🏃 Juokse rauhallisesti 40 min ja lopuksi 4 x 20 s rennot vedot. | 🛌 Vapaa. | 💪 Vaihtoehtoinen liikunta 45 min: pyöräily, uinti, soutu tai muu kestävyysliikunta. | 🛣️ Pitkä lenkki: juokse rauhallisesti 60 min. |
 
 ## 8. Vauhtijakso ja 5 km ennätys (viikot 45–52)
 
-| Vko | P1 | P2 | P3 | P4 | P5 | P6 | P7 |
+| Vko | Ma | Ti | Ke | To | Pe | La | Su |
 |---|---|---|---|---|---|---|---|
 | **45**<br>_Viimeinen jakso: haetaan vauhtia 5 km:lle._ | 🛌 Vapaa. Viimeinen jakso: haetaan vauhtia 5 km:lle. | 🏃 Juokse rauhallisesti 45 min. Vauhti niin kevyt, että pystyt puhumaan. | 💪 Lihaskunto 25 min: kyykyt, askelkyykyt, lankku, pohjenousut ja lantionnostot (3 kierrosta). | ⚡ Intervallit: lämmittele 15 min, 8 x 400 m reippaasti, 90 s hölkkä välissä. Loppuverryttely 10 min. | 🛌 Vapaa. | 🏃 Juokse rauhallisesti 40 min. Vauhti niin kevyt, että pystyt puhumaan. | 🛣️ Pitkä lenkki: juokse rauhallisesti 75 min. |
 | **46** | 🛌 Vapaa. | 🏃 Juokse rauhallisesti 45 min ja lopuksi 6 x 20 s rennot vedot. | 💪 Lihaskunto 25 min: kyykyt, askelkyykyt, lankku, pohjenousut ja lantionnostot (3 kierrosta). | ⚡ Tempojuoksu: lämmittele 10 min, juokse 20 min reipasta tasaista vauhtia (puhe katkeilee), loppuverryttely 10 min. | 🛌 Vapaa. | 🏃 Juokse rauhallisesti 40 min. Vauhti niin kevyt, että pystyt puhumaan. | 🛣️ Pitkä lenkki: juokse rauhallisesti 80 min. |

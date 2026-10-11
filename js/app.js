@@ -12,9 +12,6 @@
     fi: {
       appName: 'Juoksukoulu',
       tabToday: 'Tänään', tabPlan: 'Ohjelma', tabProgress: 'Edistyminen', tabSettings: 'Asetukset',
-      // Program days are relative to the start date, not weekdays.
-      days: [1, 2, 3, 4, 5, 6, 7].map((n) => `Päivä ${n}`),
-      daysShort: [1, 2, 3, 4, 5, 6, 7].map((n) => `P${n}`),
       week: 'Viikko', weekShort: 'vko',
       types: { rest: 'Lepo', walk: 'Kävely', run: 'Juoksu', speed: 'Vauhti', long: 'Pitkä lenkki', cross: 'Oheisharjoitus', goal: 'Tavoite / testi' },
       note: 'Muistiinpano (esim. matka, aika, fiilis)',
@@ -28,8 +25,8 @@
       streak: 'Täysiä viikkoja putkeen', weeksOverview: 'Viikot', phases: 'Jaksot', milestones: 'Virstanpylväät',
       notes: 'Viimeisimmät muistiinpanot', noNotes: 'Ei vielä muistiinpanoja.',
       startDate: 'Ohjelman aloituspäivä',
-      startDateHelp: 'Voit aloittaa minä päivänä tahansa. Aloituspäivä on viikon 1 päivä 1, ja jokainen ohjelmaviikko alkaa samasta viikonpäivästä.',
-      setWeekHelp: 'Tästä päivästä tulee valitun viikon päivä 1.',
+      startDateHelp: 'Voit aloittaa minä päivänä tahansa. Jokainen ohjelmaviikko alkaa samasta viikonpäivästä kuin aloituspäivä.',
+      setWeekHelp: 'Tästä päivästä tulee valitun viikon ensimmäinen päivä.',
       setWeek: 'Olen nyt viikolla', setWeekBtn: 'Aseta',
       backfill: 'Merkitse kaikki aiemmat päivät tehdyiksi',
       backfillConfirm: 'Merkitäänkö kaikki tätä päivää edeltävät merkitsemättömät päivät tehdyiksi?',
@@ -54,8 +51,6 @@
     en: {
       appName: 'Running School',
       tabToday: 'Today', tabPlan: 'Plan', tabProgress: 'Progress', tabSettings: 'Settings',
-      days: [1, 2, 3, 4, 5, 6, 7].map((n) => `Day ${n}`),
-      daysShort: [1, 2, 3, 4, 5, 6, 7].map((n) => `D${n}`),
       week: 'Week', weekShort: 'wk',
       types: { rest: 'Rest', walk: 'Walk', run: 'Run', speed: 'Speed', long: 'Long run', cross: 'Cross-training', goal: 'Goal / test' },
       note: 'Note (e.g. distance, time, how it felt)',
@@ -69,8 +64,8 @@
       streak: 'Full weeks in a row', weeksOverview: 'Weeks', phases: 'Phases', milestones: 'Milestones',
       notes: 'Latest notes', noNotes: 'No notes yet.',
       startDate: 'Program start date',
-      startDateHelp: 'You can start on any day. The start date is day 1 of week 1, and every program week starts on that same weekday.',
-      setWeekHelp: 'Today becomes day 1 of the chosen week.',
+      startDateHelp: 'You can start on any day. Every program week starts on the same weekday as the start date.',
+      setWeekHelp: 'Today becomes the first day of the chosen week.',
       setWeek: 'I am currently on week', setWeekBtn: 'Set',
       backfill: 'Mark all earlier days as done',
       backfillConfirm: 'Mark every unmarked day before today as done?',
@@ -158,12 +153,20 @@
     return { status: 'active', week, day: idx % 7, idx };
   }
 
-  // Short calendar label for a program day, e.g. "ke 14.10." / "Wed 14 Oct".
+  // Weekday names come from the real date, so a program started on any day
+  // shows the right weekdays (e.g. "Keskiviikko" / "Ke").
+  function weekday(dt, style) {
+    const s = dt.toLocaleDateString(state.lang === 'fi' ? 'fi-FI' : 'en-GB', { weekday: style });
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+  const dayName = (w, d) => weekday(dateFor(w, d), 'long');
+  const dayShort = (w, d) => weekday(dateFor(w, d), 'short');
+
+  // Short date without year, e.g. "14.10." / "14 Oct".
   function fmtDay(dt) {
-    const wd = dt.toLocaleDateString(state.lang === 'fi' ? 'fi-FI' : 'en-GB', { weekday: 'short' });
     return state.lang === 'fi'
-      ? `${wd} ${dt.getDate()}.${dt.getMonth() + 1}.`
-      : `${wd} ${dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}`;
+      ? `${dt.getDate()}.${dt.getMonth() + 1}.`
+      : dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
   }
 
   function fmtDate(dt) {
@@ -262,7 +265,7 @@
     const e = entry(w, d);
     const isToday = pos.status === 'active' && (w - 1) * 7 + d === pos.idx;
     return `<div class="${cellClasses(w, d, pos)} row" role="button" tabindex="0" data-w="${w}" data-d="${d}">
-      <span class="row-day">${esc(t().daysShort[d])}<small>${esc(fmtDay(dateFor(w, d)))}</small></span>
+      <span class="row-day">${esc(dayShort(w, d))}<small>${esc(fmtDay(dateFor(w, d)))}</small></span>
       <span class="row-text">${isToday ? `<span class="pill">${esc(t().todayLabel)}</span>` : ''}${esc(wo[state.lang])}${e.note ? `<em class="row-note">📝 ${esc(e.note)}</em>` : ''}</span>
       ${checkBtn(w, d)}
     </div>`;
@@ -290,7 +293,7 @@
         <div class="hero-head">
           <div>
             <div class="eyebrow">${esc(L.week)} ${w} ${L.of} ${WEEKS} · ${esc(phase[state.lang])}</div>
-            <h1>${esc(L.days[d])} <span class="muted">${esc(fmtDay(dateFor(w, d)))}</span></h1>
+            <h1>${esc(dayName(w, d))} <span class="muted">${esc(fmtDay(dateFor(w, d)))}</span></h1>
           </div>
           ${badge(wo.type)}
         </div>
@@ -319,7 +322,7 @@
   function renderPlan() {
     const L = t();
     const pos = position();
-    const head = `<div class="grid-head"><span></span>${L.daysShort.map((x) => `<span>${esc(x)}</span>`).join('')}</div>`;
+    const head = `<div class="grid-head"><span></span>${[0, 1, 2, 3, 4, 5, 6].map((d) => `<span>${esc(dayShort(1, d))}</span>`).join('')}</div>`;
     let html = `<div class="legend">${Object.keys(L.types).map((k) =>
       `<span class="legend-item type-${k}">${esc(L.types[k])}</span>`).join('')}</div>`;
     for (const phase of P.phases) {
@@ -339,7 +342,7 @@
           const wo = workout(w, d);
           const e = entry(w, d);
           html += `<div class="${cellClasses(w, d, pos)}" role="button" tabindex="0" data-w="${w}" data-d="${d}">
-            <span class="cell-day">${esc(L.daysShort[d])}</span>
+            <span class="cell-day">${esc(dayShort(w, d))}</span>
             <span class="cell-text">${esc(wo[state.lang])}</span>
             ${e.note ? '<span class="cell-note" title="note">📝</span>' : ''}
             ${checkBtn(w, d)}
@@ -388,7 +391,7 @@
       .map(([k, v]) => { const [w, d] = k.split(':').map(Number); return { w, d, v }; })
       .sort((a, b) => (b.w * 7 + b.d) - (a.w * 7 + a.d))
       .slice(0, 12)
-      .map(({ w, d, v }) => `<li><button class="link" data-w="${w}" data-d="${d}">${esc(L.weekShort)} ${w} · ${esc(L.daysShort[d])}</button> ${esc(v.note)}</li>`)
+      .map(({ w, d, v }) => `<li><button class="link" data-w="${w}" data-d="${d}">${esc(L.weekShort)} ${w} · ${esc(dayShort(w, d))}</button> ${esc(v.note)}</li>`)
       .join('');
 
     $('#view-progress').innerHTML = `
@@ -498,7 +501,7 @@
     const wo = workout(w, d);
     const e = entry(w, d);
     dlgTarget = { w, d };
-    $('#dlgMeta').textContent = `${L.week} ${w} · ${L.days[d]} · ${fmtDay(dateFor(w, d))}`;
+    $('#dlgMeta').textContent = `${L.week} ${w} · ${dayName(w, d)} ${fmtDay(dateFor(w, d))}`;
     $('#dlgType').innerHTML = `${badge(wo.type)} ${statusLabel(e)}`;
     $('#dlgText').textContent = wo[state.lang];
     $('#dlgNote').value = e.note || '';
