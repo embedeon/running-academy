@@ -11,8 +11,8 @@ const BANNED = new RegExp([
   '(?<![a-zåäö])(?:käänn|koti|talv|kesä|kevä|syks|ulko|sisätil|lumi|liuk|sade|heijast|pime|metsä|polku|polut|luonno|reitti|lyhty|kisa|kilpailu|juomapiste|hiihto|sauva|maasto|juoksumat)',
   // English whole words
   // Only running and walking: no other workout forms
-  '(?<![a-zåäö])(?:lihaskun|kuntosal|kyykky|kyykyt|lankku|jooga|venyt|rullau|liikkuvuu|pyöräil|uinti|uida|soutu|hiihto|crosstrainer|oheisharj|vaihtoehtoinen liikunta)',
-  '\\b(?:strength|squats?|lunges?|plank|yoga|stretch\\w*|foam roll\\w*|mobility|cycling|swim\\w*|rowing|cross-training|gym)\\b',
+  '(?<![a-zåäö])(?:lihaskun|kuntosal|lämmit|verrytt|loppuverr|kyykky|kyykyt|lankku|jooga|venyt|rullau|liikkuvuu|pyöräil|uinti|uida|soutu|hiihto|crosstrainer|oheisharj|vaihtoehtoinen liikunta)',
+  '\\b(?:warm-?ups?|warm up|cool-?downs?|cool down|strength|squats?|lunges?|plank|yoga|stretch\\w*|foam roll\\w*|mobility|cycling|swim\\w*|rowing|cross-training|gym)\\b',
   '\\b(?:winter|summer|spring|autumn|weather|rain|snow|ice|dark|home|turn around|trails?|route|lamp|ski|skiing|race|nordic|treadmill|outdoors?|indoors?|outside|inside|course|aid stations?|loop|reflector|nature|forests?)\\b',
 ].join('|'), 'i');
 assert.strictEqual(P.weeks.length, 52, 'program must have 52 weeks');

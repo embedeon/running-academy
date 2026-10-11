@@ -42,23 +42,23 @@
       `Long run: easy ${km} km.${enExtra ? ' ' + enExtra : ''}`);
   const tempo = (min) =>
     d('speed',
-      `Tempojuoksu: lämmittele 10 min, juokse ${min} min reipasta tasaista vauhtia (puhe katkeilee), loppuverryttely 10 min.`,
-      `Tempo run: 10 min warm-up, ${min} min comfortably hard steady pace, 10 min cool-down.`);
+      `Tempojuoksu: hölkkää rauhallisesti 10 min, juokse ${min} min reipasta tasaista vauhtia (puhe katkeilee) ja hölkkää lopuksi rauhallisesti 10 min.`,
+      `Tempo run: jog easy 10 min, run ${min} min at a comfortably hard steady pace, then jog easy 10 min.`);
   // Hill repeats come with a flat alternative (same reps and recovery) that the
   // user can pick per day or for the whole program.
   const hills = (n, sec) => ({
     ...d('speed',
-      `Mäkiharjoitus: lämmittele 15 min, juokse ${n} x ${sec} s reippaasti ylämäkeen ja palaudu 1–2 min kävellen tai hölkäten. Loppuverryttely 10 min.`,
-      `Hill repeats: 15 min warm-up, ${n} x ${sec} s brisk uphill, recover 1–2 min walking or jogging. 10 min cool-down.`),
+      `Mäkiharjoitus: hölkkää rauhallisesti 15 min, juokse ${n} x ${sec} s reippaasti ylämäkeen ja palaudu 1–2 min kävellen tai hölkäten. Hölkkää lopuksi rauhallisesti 10 min.`,
+      `Hill repeats: jog easy 15 min, run ${n} x ${sec} s brisk uphill, recover 1–2 min walking or jogging. Finish with 10 min easy jogging.`),
     alt: {
-      fi: `Vauhtivedot: lämmittele 15 min, juokse ${n} x ${sec} s reippaasti tasaisella ja palaudu 1–2 min kävellen tai hölkäten. Loppuverryttely 10 min.`,
-      en: `Fast repeats: 15 min warm-up, ${n} x ${sec} s brisk on the flat, recover 1–2 min walking or jogging. 10 min cool-down.`,
+      fi: `Vauhtivedot: hölkkää rauhallisesti 15 min, juokse ${n} x ${sec} s reippaasti tasaisella ja palaudu 1–2 min kävellen tai hölkäten. Hölkkää lopuksi rauhallisesti 10 min.`,
+      en: `Fast repeats: jog easy 15 min, run ${n} x ${sec} s brisk on the flat, recover 1–2 min walking or jogging. Finish with 10 min easy jogging.`,
     },
   });
   const intervals = (fiMain, enMain) =>
     d('speed',
-      `Intervallit: lämmittele 15 min, ${fiMain}. Loppuverryttely 10 min.`,
-      `Intervals: 15 min warm-up, ${enMain}. 10 min cool-down.`);
+      `Intervallit: hölkkää rauhallisesti 15 min, juokse ${fiMain}. Hölkkää lopuksi rauhallisesti 10 min.`,
+      `Intervals: jog easy 15 min, run ${enMain}. Finish with 10 min easy jogging.`);
   const fartlek = (min) =>
     d('speed',
       `Vauhtileikittely ${min} min: juokse välillä reippaammin esim. 30–60 s kerrallaan, ja palaudu hölkäten.`,
@@ -328,8 +328,8 @@
       d('run', 'Juokse rauhallisesti 20 min ja 4 x 20 s rennot vedot. Valmistaudu lauantain testiin.',
         'Easy 20 min run and 4 x 20 s strides. Get ready for Saturday’s test.'),
       rest(),
-      d('goal', '5 km testijuoksu: lämmittele 10 min ja juokse 5 km niin kovaa kuin jaksat tasaisesti. Kirjaa aika muistiin ja vertaa viikkoon 6!',
-        '5 km time trial: 10 min warm-up, then run 5 km as hard as you can sustain. Write down your time and compare with week 6!'),
+      d('goal', '5 km testijuoksu: hölkkää ensin rauhallisesti 10 min ja juokse sitten 5 km niin kovaa kuin jaksat tasaisesti. Kirjaa aika muistiin ja vertaa viikkoon 6!',
+        '5 km time trial: jog easy 10 min first, then run 5 km as hard as you can sustain. Write down your time and compare with week 6!'),
       d('run', 'Palauttava 30 min hölkkä.', 'Easy 30 min recovery jog.'),
     ],
 
@@ -499,8 +499,8 @@
       rest(),
       easy(60),
       walk(30),
-      d('speed', 'Tempojuoksu: lämmittele 10 min, 2 x 15 min reipasta vauhtia (3 min hölkkä välissä), loppuverryttely 10 min.',
-        'Tempo run: 10 min warm-up, 2 x 15 min comfortably hard (3 min jog between), 10 min cool-down.'),
+      d('speed', 'Tempojuoksu: hölkkää rauhallisesti 10 min, juokse 2 x 15 min reipasta vauhtia (3 min hölkkä välissä) ja hölkkää lopuksi rauhallisesti 10 min.',
+        'Tempo run: jog easy 10 min, run 2 x 15 min comfortably hard (3 min jog between), then jog easy 10 min.'),
       rest(),
       easy(45),
       d('long', 'Pitkä lenkki 16 km: viimeiset 5 km puolimaratonvauhtia.', 'Long run 16 km: the last 5 km at half marathon pace.'),
@@ -634,8 +634,8 @@
       walk(30),
       d('run', 'Juokse 20 min, josta 3 x 1 min 5 km:n vauhtia.', 'Run 20 min including 3 x 1 min at 5 km pace.'),
       rest('Vapaa. Huomenna aika-ajo.', 'Rest. Time trial tomorrow.'),
-      d('goal', '5 km aika-ajo: lämmittele 15 min ja juokse kaikkesi. Vertaa aikaa viikkoihin 6 ja 20!',
-        '5 km time trial: 15 min warm-up, then give it everything. Compare with weeks 6 and 20!'),
+      d('goal', '5 km aika-ajo: hölkkää ensin rauhallisesti 15 min ja juokse sitten 5 km kaikkesi antaen. Vertaa aikaa viikkoihin 6 ja 20!',
+        '5 km time trial: jog easy 15 min first, then run 5 km giving it everything. Compare with weeks 6 and 20!'),
       d('long', 'Vuoden päätöslenkki: juokse 10 km rauhallisesti nauttien. Vuosi sitten kävelit 5 min ja juoksit 2 min. Onneksi olkoon, olet juoksija!',
         'Year-end run: an easy, joyful 10 km. A year ago you walked 5 min and ran 2 min. Congratulations, you are a runner!'),
     ],
