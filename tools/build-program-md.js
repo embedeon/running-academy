@@ -19,7 +19,7 @@ for (const ph of P.phases) {
   out += `| Vko | ${DAYS.join(' | ')} |\n|---|${DAYS.map(() => '---').join('|')}|\n`;
   for (let w = ph.weeks[0]; w <= ph.weeks[1]; w++) {
     const note = P.weekNotes[w] ? `<br>_${P.weekNotes[w][0]}_` : '';
-    out += `| **${w}**${note} | ` + P.weeks[w - 1].map((d) => `${icon[d.type]} ${cell(d.fi)}`).join(' | ') + ' |\n';
+    out += `| **${w}**${note} | ` + P.weeks[w - 1].map((d) => `${icon[d.type]} ${cell(d.fi)}${d.alt ? `<br>_Vaihtoehto: ${cell(d.alt.fi)}_` : ''}`).join(' | ') + ' |\n';
   }
   out += '\n';
 }

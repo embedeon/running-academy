@@ -15,6 +15,9 @@
       week: 'Viikko', weekShort: 'vko',
       types: { rest: 'Lepo', walk: 'Kävely', run: 'Juoksu', speed: 'Vauhti', long: 'Pitkä lenkki', goal: 'Tavoite / testi' },
       note: 'Muistiinpano (esim. matka, aika, fiilis)',
+      useAlt: '⇄ Vaihda tasamaan vetoihin', useMain: '⇄ Palaa mäkiharjoitukseen', altLabel: 'Vaihtoehto',
+      noHills: 'Korvaa kaikki mäkiharjoitukset tasamaan vedoilla',
+      noHillsHelp: 'Voit myös vaihtaa yksittäisen päivän harjoituksen sen omasta näkymästä.',
       markDone: 'Tehty ✓', markSkipped: 'Väliin jäi', toggleDone: 'Merkitse tehdyksi', todayLabel: 'Tänään', missedLabel: 'Merkitsemättä', clear: 'Tyhjennä', close: 'Sulje', addNote: 'Muistiinpano',
       statusDone: 'Tehty', statusSkipped: 'Väliin jäi',
       todayWorkout: 'Päivän harjoitus', thisWeek: 'Tämä viikko', weekDone: 'viikon harjoituksista tehty',
@@ -40,7 +43,7 @@
         ['Rennot vedot', 'Noin 20 s kiihdytys lähes kovaan vauhtiin rennosti, kävely- tai hölkkätauko välissä.'],
         ['Tempojuoksu', '”Mukavan raskas” tasainen vauhti, jossa puhe katkeilee.'],
         ['Vauhtileikittely', 'Vapaamuotoisia vauhdinvaihteluita fiiliksen mukaan.'],
-        ['Mäkivedot', 'Lyhyet reippaat vedot ylämäkeen. Maltillinen jyrkkyys riittää.'],
+        ['Mäkivedot', 'Lyhyet reippaat vedot ylämäkeen. Maltillinen jyrkkyys riittää. Halutessasi voit juosta vedot tasaisella.'],
         ['Missä tahansa', 'Kaikki harjoitukset sopivat sekä juoksumatolle että ulos. Valitse se, mikä sinulle sopii.'],
         ['Kevennysviikko', 'Joka 4. viikko harjoitellaan vähemmän, jotta keho ehtii vahvistua.'],
         ['Kuuntele kehoa', 'Jos olet kipeä tai viikko tuntuu liian raskaalta, toista se ennen kuin jatkat. Kuumeisena ei juosta.'],
@@ -54,6 +57,9 @@
       week: 'Week', weekShort: 'wk',
       types: { rest: 'Rest', walk: 'Walk', run: 'Run', speed: 'Speed', long: 'Long run', goal: 'Goal / test' },
       note: 'Note (e.g. distance, time, how it felt)',
+      useAlt: '⇄ Switch to flat repeats', useMain: '⇄ Back to hill repeats', altLabel: 'Alternative',
+      noHills: 'Replace all hill sessions with flat repeats',
+      noHillsHelp: 'You can also switch a single day from that day’s view.',
       markDone: 'Done ✓', markSkipped: 'Skipped', toggleDone: 'Mark as done', todayLabel: 'Today', missedLabel: 'Not marked', clear: 'Clear', close: 'Close', addNote: 'Note',
       statusDone: 'Done', statusSkipped: 'Skipped',
       todayWorkout: 'Today’s workout', thisWeek: 'This week', weekDone: 'of this week’s workouts done',
@@ -79,7 +85,7 @@
         ['Strides', 'About 20 s relaxed acceleration to near-fast pace, walk or jog in between.'],
         ['Tempo run', 'A “comfortably hard” steady pace where talking gets choppy.'],
         ['Fartlek', 'Free-form pace changes based on feel.'],
-        ['Hill repeats', 'Short brisk efforts uphill. A moderate gradient is enough.'],
+        ['Hill repeats', 'Short brisk efforts uphill. A moderate gradient is enough. If you prefer, run the repeats on the flat.'],
         ['Anywhere', 'Every session works on a treadmill or outside. Choose whichever suits you.'],
         ['Cut-back week', 'Every 4th week has less training so your body can adapt.'],
         ['Listen to your body', 'If you are sore or a week feels too hard, repeat it before moving on. Never run with a fever.'],
@@ -104,6 +110,7 @@
     return {
       startDate: toISO(mondayOnOrAfter(startOfToday())),
       lang: (navigator.language || 'fi').toLowerCase().startsWith('fi') ? 'fi' : 'en',
+      noHills: false,
       log: {},
     };
   }
@@ -123,6 +130,7 @@
       base.startDate = toISO(mondayOf(fromISO(obj.startDate)));
     }
     if (obj.lang === 'fi' || obj.lang === 'en') base.lang = obj.lang;
+    if (typeof obj.noHills === 'boolean') base.noHills = obj.noHills;
     if (obj.log && typeof obj.log === 'object') {
       for (const [k, v] of Object.entries(obj.log)) {
         if (!/^\d+:\d$/.test(k) || !v || typeof v !== 'object') continue;
@@ -130,7 +138,8 @@
         if (v.s === 'done' || v.s === 'skipped') entry.s = v.s;
         if (typeof v.note === 'string' && v.note.trim()) entry.note = v.note.slice(0, 1000);
         if (typeof v.t === 'number') entry.t = v.t;
-        if (entry.s || entry.note) base.log[k] = entry;
+        if (typeof v.alt === 'boolean') entry.alt = v.alt;
+        if (entry.s || entry.note || 'alt' in entry) base.log[k] = entry;
       }
     }
     return base;
@@ -186,7 +195,27 @@
     if (status === 'clear') { delete e.s; delete e.t; }
     else if (status) { e.s = status; e.t = Date.now(); }
     if (note !== undefined) { if (note.trim()) e.note = note.trim(); else delete e.note; }
-    if (e.s || e.note) state.log[k] = e; else delete state.log[k];
+    if (e.s || e.note || 'alt' in e) state.log[k] = e; else delete state.log[k];
+    save();
+    render();
+  }
+
+  // Days with an alternative (hill sessions): a per-day choice wins over the global setting.
+  const hasAlt = (w, d) => !!workout(w, d).alt;
+  function usesAlt(w, d) {
+    if (!hasAlt(w, d)) return false;
+    const e = entry(w, d);
+    return typeof e.alt === 'boolean' ? e.alt : state.noHills;
+  }
+  const wText = (w, d) => (usesAlt(w, d) ? workout(w, d).alt : workout(w, d))[state.lang];
+
+  function toggleAlt(w, d) {
+    const k = key(w, d);
+    const e = { ...(state.log[k] || {}) };
+    const next = !usesAlt(w, d);
+    // Store only a choice that differs from the global setting.
+    if (next === state.noHills) delete e.alt; else e.alt = next;
+    if (e.s || e.note || 'alt' in e) state.log[k] = e; else delete state.log[k];
     save();
     render();
   }
@@ -269,7 +298,7 @@
     const isToday = pos.status === 'active' && (w - 1) * 7 + d === pos.idx;
     return `<div class="${cellClasses(w, d, pos)} row" role="button" tabindex="0" data-w="${w}" data-d="${d}">
       <span class="row-day">${esc(dayShort(w, d))}<small>${esc(fmtDay(dateFor(w, d)))}</small></span>
-      <span class="row-text">${isToday ? `<span class="pill">${esc(t().todayLabel)}</span>` : ''}${esc(wo[state.lang])}${e.note ? `<em class="row-note">📝 ${esc(e.note)}</em>` : ''}</span>
+      <span class="row-text">${isToday ? `<span class="pill">${esc(t().todayLabel)}</span>` : ''}${esc(wText(w, d))}${e.note ? `<em class="row-note">📝 ${esc(e.note)}</em>` : ''}</span>
       ${checkBtn(w, d)}
     </div>`;
   }
@@ -300,12 +329,13 @@
           </div>
           ${badge(wo.type)}
         </div>
-        <p class="hero-text">${esc(wo[state.lang])}</p>
+        <p class="hero-text">${esc(wText(w, d))}</p>
         ${e.note ? `<p class="hero-note">📝 ${esc(e.note)}</p>` : ''}
         <div class="hero-actions">
           <button class="btn primary ${e.s === 'done' ? 'active' : ''}" data-act="done" data-w="${w}" data-d="${d}">${esc(L.markDone)}</button>
           <button class="btn ${e.s === 'skipped' ? 'active' : ''}" data-act="skipped" data-w="${w}" data-d="${d}">${esc(L.markSkipped)}</button>
           <button class="btn ghost" data-act="open" data-w="${w}" data-d="${d}">📝 ${esc(L.addNote)}</button>
+          ${hasAlt(w, d) ? `<button class="btn ghost alt-btn" data-act="alt" data-w="${w}" data-d="${d}">${esc(usesAlt(w, d) ? L.useMain : L.useAlt)}</button>` : ''}
         </div>
       </div>
 
@@ -346,7 +376,7 @@
           const e = entry(w, d);
           html += `<div class="${cellClasses(w, d, pos)}" role="button" tabindex="0" data-w="${w}" data-d="${d}">
             <span class="cell-day">${esc(dayShort(w, d))}</span>
-            <span class="cell-text">${esc(wo[state.lang])}</span>
+            <span class="cell-text">${esc(wText(w, d))}</span>
             ${e.note ? '<span class="cell-note" title="note">📝</span>' : ''}
             ${checkBtn(w, d)}
           </div>`;
@@ -429,6 +459,8 @@
         </div>
         <p class="muted small">${esc(L.setWeekHelp)}</p>
         <button class="btn wide" id="backfillBtn">${esc(L.backfill)}</button>
+        <label class="check-field"><input type="checkbox" id="noHills" ${state.noHills ? 'checked' : ''}> <span>${esc(L.noHills)}</span></label>
+        <p class="muted small">${esc(L.noHillsHelp)}</p>
       </div>
       <div class="card">
         <h2>${esc(L.language)}</h2>
@@ -506,7 +538,10 @@
     dlgTarget = { w, d };
     $('#dlgMeta').textContent = `${L.week} ${w} · ${dayName(w, d)} ${fmtDay(dateFor(w, d))}`;
     $('#dlgType').innerHTML = `${badge(wo.type)} ${statusLabel(e)}`;
-    $('#dlgText').textContent = wo[state.lang];
+    $('#dlgText').textContent = wText(w, d);
+    const altBtn = $('#dlgAlt');
+    altBtn.hidden = !hasAlt(w, d);
+    altBtn.textContent = usesAlt(w, d) ? L.useMain : L.useAlt;
     $('#dlgNote').value = e.note || '';
     dlg.returnValue = '';
     if (typeof dlg.showModal === 'function') dlg.showModal();
@@ -519,6 +554,7 @@
     dlgTarget = null;
     const action = dlg.returnValue;
     const note = $('#dlgNote').value;
+    if (action === 'alt') { setEntry(w, d, null, note); toggleAlt(w, d); return; }
     if (action === 'done' || action === 'skipped' || action === 'clear') setEntry(w, d, action, note);
     else if (note.trim() !== (entry(w, d).note || '')) setEntry(w, d, null, note);
   });
@@ -538,6 +574,7 @@
     if (el.dataset.act && w) {
       const cur = entry(w, d).s;
       if (el.dataset.act === 'open') return openDay(w, d);
+      if (el.dataset.act === 'alt') return toggleAlt(w, d);
       justToggled = key(w, d);
       setEntry(w, d, cur === el.dataset.act ? 'clear' : el.dataset.act);
       justToggled = null;
@@ -585,6 +622,7 @@
   });
 
   document.addEventListener('change', (ev) => {
+    if (ev.target.id === 'noHills') { state.noHills = ev.target.checked; save(); render(); }
     if (ev.target.id === 'startDate' && ev.target.value) {
       state.startDate = toISO(mondayOnOrAfter(fromISO(ev.target.value)));
       save(); render();

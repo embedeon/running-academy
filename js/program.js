@@ -44,10 +44,17 @@
     d('speed',
       `Tempojuoksu: lämmittele 10 min, juokse ${min} min reipasta tasaista vauhtia (puhe katkeilee), loppuverryttely 10 min.`,
       `Tempo run: 10 min warm-up, ${min} min comfortably hard steady pace, 10 min cool-down.`);
-  const hills = (n, sec) =>
-    d('speed',
+  // Hill repeats come with a flat alternative (same reps and recovery) that the
+  // user can pick per day or for the whole program.
+  const hills = (n, sec) => ({
+    ...d('speed',
       `Mäkiharjoitus: lämmittele 15 min, juokse ${n} x ${sec} s reippaasti ylämäkeen ja palaudu 1–2 min kävellen tai hölkäten. Loppuverryttely 10 min.`,
-      `Hill repeats: 15 min warm-up, ${n} x ${sec} s brisk uphill, recover 1–2 min walking or jogging. 10 min cool-down.`);
+      `Hill repeats: 15 min warm-up, ${n} x ${sec} s brisk uphill, recover 1–2 min walking or jogging. 10 min cool-down.`),
+    alt: {
+      fi: `Vauhtivedot: lämmittele 15 min, juokse ${n} x ${sec} s reippaasti tasaisella ja palaudu 1–2 min kävellen tai hölkäten. Loppuverryttely 10 min.`,
+      en: `Fast repeats: 15 min warm-up, ${n} x ${sec} s brisk on the flat, recover 1–2 min walking or jogging. 10 min cool-down.`,
+    },
+  });
   const intervals = (fiMain, enMain) =>
     d('speed',
       `Intervallit: lämmittele 15 min, ${fiMain}. Loppuverryttely 10 min.`,

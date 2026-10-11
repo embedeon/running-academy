@@ -34,6 +34,8 @@ The whole year as a printable table is in [`PROGRAM.md`](PROGRAM.md), in Finnish
   Tap the circle to mark a day done (it turns green with a ✓). Tap the text to see details, mark the day skipped, or add a note.
   Past days that were never marked get a dashed amber circle.
 - **Progress:** workouts done, how much of the plan is done so far, streak of full weeks, week heatmap, milestones and phases.
+- **Hill sessions** have a flat alternative (same repeats on the flat). Switch a single day from that day's view,
+  or all of them in Settings.
 - **Settings:** start date (any day), or "I am currently on week N"; a button to mark all earlier days as done (useful if you
   already followed the paper version); JSON backup export and import; Finnish/English.
 

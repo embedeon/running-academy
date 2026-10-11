@@ -22,7 +22,8 @@ P.weeks.forEach((week, i) => {
     const where = `week ${i + 1} day ${d + 1}`;
     assert.ok(TYPES.has(day.type), `${where}: unknown type ${day.type}`);
     assert.ok(day.fi && day.en, `${where}: missing text`);
-    for (const text of [day.fi, day.en]) {
+    if (day.alt) assert.ok(day.alt.fi && day.alt.en, `${where}: alternative needs fi and en text`);
+    for (const text of [day.fi, day.en, ...(day.alt ? [day.alt.fi, day.alt.en] : [])]) {
       const m = text.match(BANNED);
       assert.ok(!m, `${where}: location/season/race-specific wording "${m && m[0]}" in: ${text}`);
     }
