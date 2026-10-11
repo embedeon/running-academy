@@ -12,10 +12,11 @@
     fi: {
       appName: 'Juoksukoulu',
       tabToday: 'Tänään', tabPlan: 'Ohjelma', tabProgress: 'Edistyminen', tabSettings: 'Asetukset',
-      days: ['Maanantai', 'Tiistai', 'Keskiviikko', 'Torstai', 'Perjantai', 'Lauantai', 'Sunnuntai'],
-      daysShort: ['Ma', 'Ti', 'Ke', 'To', 'Pe', 'La', 'Su'],
+      // Program days are relative to the start date, not weekdays.
+      days: [1, 2, 3, 4, 5, 6, 7].map((n) => `Päivä ${n}`),
+      daysShort: [1, 2, 3, 4, 5, 6, 7].map((n) => `P${n}`),
       week: 'Viikko', weekShort: 'vko',
-      types: { rest: 'Lepo', walk: 'Kävely', run: 'Juoksu', speed: 'Vauhti', long: 'Pitkä lenkki', cross: 'Oheisharjoitus', race: 'Tavoite / kisa' },
+      types: { rest: 'Lepo', walk: 'Kävely', run: 'Juoksu', speed: 'Vauhti', long: 'Pitkä lenkki', cross: 'Oheisharjoitus', goal: 'Tavoite / testi' },
       note: 'Muistiinpano (esim. matka, aika, fiilis)',
       markDone: 'Tehty ✓', markSkipped: 'Väliin jäi', toggleDone: 'Merkitse tehdyksi', todayLabel: 'Tänään', missedLabel: 'Merkitsemättä', clear: 'Tyhjennä', close: 'Sulje', addNote: 'Muistiinpano',
       statusDone: 'Tehty', statusSkipped: 'Väliin jäi',
@@ -26,8 +27,9 @@
       workoutsDone: 'Harjoituksia tehty', onTrack: 'Tähän päivään mennessä', currentWeek: 'Nykyinen viikko',
       streak: 'Täysiä viikkoja putkeen', weeksOverview: 'Viikot', phases: 'Jaksot', milestones: 'Virstanpylväät',
       notes: 'Viimeisimmät muistiinpanot', noNotes: 'Ei vielä muistiinpanoja.',
-      startDate: 'Ohjelman aloituspäivä (maanantai)',
-      startDateHelp: 'Viikko alkaa aina maanantaina. Jos valitset muun päivän, käytetään saman viikon maanantaita.',
+      startDate: 'Ohjelman aloituspäivä',
+      startDateHelp: 'Voit aloittaa minä päivänä tahansa. Aloituspäivä on viikon 1 päivä 1, ja jokainen ohjelmaviikko alkaa samasta viikonpäivästä.',
+      setWeekHelp: 'Tästä päivästä tulee valitun viikon päivä 1.',
       setWeek: 'Olen nyt viikolla', setWeekBtn: 'Aseta',
       backfill: 'Merkitse kaikki aiemmat päivät tehdyiksi',
       backfillConfirm: 'Merkitäänkö kaikki tätä päivää edeltävät merkitsemättömät päivät tehdyiksi?',
@@ -40,7 +42,9 @@
         ['Rauhallinen juoksu', 'Vauhti, jossa pystyt puhumaan kokonaisia lauseita. Suurin osa juoksuista on tätä.'],
         ['Rennot vedot', 'Noin 20 s kiihdytys lähes kovaan vauhtiin rennosti, kävely- tai hölkkätauko välissä.'],
         ['Tempojuoksu', '”Mukavan raskas” tasainen vauhti, jossa puhe katkeilee.'],
-        ['Vauhtileikittely', 'Vapaamuotoisia vauhdinvaihteluita maaston ja fiiliksen mukaan.'],
+        ['Vauhtileikittely', 'Vapaamuotoisia vauhdinvaihteluita fiiliksen mukaan.'],
+        ['Nousuvedot', 'Lyhyet reippaat vedot nousuun. Nousun jyrkkyys saa olla maltillinen.'],
+        ['Missä tahansa', 'Kaikki harjoitukset sopivat sekä juoksumatolle että ulos. Valitse se, mikä sinulle sopii.'],
         ['Kevennysviikko', 'Joka 4. viikko harjoitellaan vähemmän, jotta keho ehtii vahvistua.'],
         ['Kuuntele kehoa', 'Jos olet kipeä tai viikko tuntuu liian raskaalta, toista se ennen kuin jatkat. Kuumeisena ei juosta.'],
       ],
@@ -50,10 +54,10 @@
     en: {
       appName: 'Running School',
       tabToday: 'Today', tabPlan: 'Plan', tabProgress: 'Progress', tabSettings: 'Settings',
-      days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-      daysShort: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      days: [1, 2, 3, 4, 5, 6, 7].map((n) => `Day ${n}`),
+      daysShort: [1, 2, 3, 4, 5, 6, 7].map((n) => `D${n}`),
       week: 'Week', weekShort: 'wk',
-      types: { rest: 'Rest', walk: 'Walk', run: 'Run', speed: 'Speed', long: 'Long run', cross: 'Cross-training', race: 'Goal / race' },
+      types: { rest: 'Rest', walk: 'Walk', run: 'Run', speed: 'Speed', long: 'Long run', cross: 'Cross-training', goal: 'Goal / test' },
       note: 'Note (e.g. distance, time, how it felt)',
       markDone: 'Done ✓', markSkipped: 'Skipped', toggleDone: 'Mark as done', todayLabel: 'Today', missedLabel: 'Not marked', clear: 'Clear', close: 'Close', addNote: 'Note',
       statusDone: 'Done', statusSkipped: 'Skipped',
@@ -64,8 +68,9 @@
       workoutsDone: 'Workouts done', onTrack: 'So far', currentWeek: 'Current week',
       streak: 'Full weeks in a row', weeksOverview: 'Weeks', phases: 'Phases', milestones: 'Milestones',
       notes: 'Latest notes', noNotes: 'No notes yet.',
-      startDate: 'Program start date (Monday)',
-      startDateHelp: 'Weeks always start on Monday. If you pick another day, that week’s Monday is used.',
+      startDate: 'Program start date',
+      startDateHelp: 'You can start on any day. The start date is day 1 of week 1, and every program week starts on that same weekday.',
+      setWeekHelp: 'Today becomes day 1 of the chosen week.',
       setWeek: 'I am currently on week', setWeekBtn: 'Set',
       backfill: 'Mark all earlier days as done',
       backfillConfirm: 'Mark every unmarked day before today as done?',
@@ -78,7 +83,9 @@
         ['Easy run', 'A pace at which you can speak in full sentences. Most runs are easy.'],
         ['Strides', 'About 20 s relaxed acceleration to near-fast pace, walk or jog in between.'],
         ['Tempo run', 'A “comfortably hard” steady pace where talking gets choppy.'],
-        ['Fartlek', 'Free-form pace changes based on terrain and feel.'],
+        ['Fartlek', 'Free-form pace changes based on feel.'],
+        ['Incline repeats', 'Short brisk efforts on an incline. A moderate gradient is enough.'],
+        ['Anywhere', 'Every session works on a treadmill or outside. Choose whichever suits you.'],
         ['Cut-back week', 'Every 4th week has less training so your body can adapt.'],
         ['Listen to your body', 'If you are sore or a week feels too hard, repeat it before moving on. Never run with a fever.'],
       ],
@@ -92,13 +99,12 @@
   const toISO = (dt) => `${dt.getFullYear()}-${pad(dt.getMonth() + 1)}-${pad(dt.getDate())}`;
   const fromISO = (s) => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); };
   const startOfToday = () => { const n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate()); };
-  const mondayOf = (dt) => { const r = new Date(dt); r.setDate(r.getDate() - ((r.getDay() + 6) % 7)); return r; };
   const addDays = (dt, n) => { const r = new Date(dt); r.setDate(r.getDate() + n); return r; };
   const daysBetween = (a, b) => Math.round((b - a) / DAY_MS);
 
   function defaultState() {
     return {
-      startDate: toISO(mondayOf(startOfToday())),
+      startDate: toISO(startOfToday()),
       lang: (navigator.language || 'fi').toLowerCase().startsWith('fi') ? 'fi' : 'en',
       log: {},
     };
@@ -116,7 +122,7 @@
     const base = defaultState();
     if (!obj || typeof obj !== 'object') return base;
     if (typeof obj.startDate === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(obj.startDate)) {
-      base.startDate = toISO(mondayOf(fromISO(obj.startDate)));
+      base.startDate = obj.startDate;
     }
     if (obj.lang === 'fi' || obj.lang === 'en') base.lang = obj.lang;
     if (obj.log && typeof obj.log === 'object') {
@@ -150,6 +156,14 @@
     const week = Math.floor(idx / 7) + 1;
     if (week > WEEKS) return { status: 'after', week: WEEKS, day: 6, idx };
     return { status: 'active', week, day: idx % 7, idx };
+  }
+
+  // Short calendar label for a program day, e.g. "ke 14.10." / "Wed 14 Oct".
+  function fmtDay(dt) {
+    const wd = dt.toLocaleDateString(state.lang === 'fi' ? 'fi-FI' : 'en-GB', { weekday: 'short' });
+    return state.lang === 'fi'
+      ? `${wd} ${dt.getDate()}.${dt.getMonth() + 1}.`
+      : `${wd} ${dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}`;
   }
 
   function fmtDate(dt) {
@@ -248,7 +262,7 @@
     const e = entry(w, d);
     const isToday = pos.status === 'active' && (w - 1) * 7 + d === pos.idx;
     return `<div class="${cellClasses(w, d, pos)} row" role="button" tabindex="0" data-w="${w}" data-d="${d}">
-      <span class="row-day">${esc(t().daysShort[d])}<small>${esc(fmtDate(dateFor(w, d)).replace(/\.\d{4}$/, '.'))}</small></span>
+      <span class="row-day">${esc(t().daysShort[d])}<small>${esc(fmtDay(dateFor(w, d)))}</small></span>
       <span class="row-text">${isToday ? `<span class="pill">${esc(t().todayLabel)}</span>` : ''}${esc(wo[state.lang])}${e.note ? `<em class="row-note">📝 ${esc(e.note)}</em>` : ''}</span>
       ${checkBtn(w, d)}
     </div>`;
@@ -276,7 +290,7 @@
         <div class="hero-head">
           <div>
             <div class="eyebrow">${esc(L.week)} ${w} ${L.of} ${WEEKS} · ${esc(phase[state.lang])}</div>
-            <h1>${esc(L.days[d])} <span class="muted">${esc(fmtDate(dateFor(w, d)))}</span></h1>
+            <h1>${esc(L.days[d])} <span class="muted">${esc(fmtDay(dateFor(w, d)))}</span></h1>
           </div>
           ${badge(wo.type)}
         </div>
@@ -407,6 +421,7 @@
             <input type="number" id="weekNo" min="1" max="${WEEKS}" value="${pos.week}"></label>
           <button class="btn" id="setWeekBtn">${esc(L.setWeekBtn)}</button>
         </div>
+        <p class="muted small">${esc(L.setWeekHelp)}</p>
         <button class="btn wide" id="backfillBtn">${esc(L.backfill)}</button>
       </div>
       <div class="card">
@@ -483,7 +498,7 @@
     const wo = workout(w, d);
     const e = entry(w, d);
     dlgTarget = { w, d };
-    $('#dlgMeta').textContent = `${L.week} ${w} · ${L.days[d]} ${fmtDate(dateFor(w, d))}`;
+    $('#dlgMeta').textContent = `${L.week} ${w} · ${L.days[d]} · ${fmtDay(dateFor(w, d))}`;
     $('#dlgType').innerHTML = `${badge(wo.type)} ${statusLabel(e)}`;
     $('#dlgText').textContent = wo[state.lang];
     $('#dlgNote').value = e.note || '';
@@ -526,7 +541,7 @@
 
     if (el.id === 'setWeekBtn') {
       const n = Math.min(WEEKS, Math.max(1, Number($('#weekNo').value) || 1));
-      state.startDate = toISO(addDays(mondayOf(startOfToday()), -(n - 1) * 7));
+      state.startDate = toISO(addDays(startOfToday(), -(n - 1) * 7));
       save(); return render();
     }
     if (el.id === 'backfillBtn') {
@@ -565,7 +580,7 @@
 
   document.addEventListener('change', (ev) => {
     if (ev.target.id === 'startDate' && ev.target.value) {
-      state.startDate = toISO(mondayOf(fromISO(ev.target.value)));
+      state.startDate = ev.target.value;
       save(); render();
     }
     if (ev.target.id === 'importFile' && ev.target.files[0]) {

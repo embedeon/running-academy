@@ -4,13 +4,15 @@ const fs = require('fs');
 const path = require('path');
 const P = require('../js/program.js');
 
-const DAYS = ['Ma', 'Ti', 'Ke', 'To', 'Pe', 'La', 'Su'];
+const DAYS = ['P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7'];
 const cell = (s) => s.replace(/\|/g, '\\|');
 let out = '# Juoksuohjelma – 52 viikkoa\n\n';
 out += '> Generoitu tiedostosta `js/program.js` (`node tools/build-program-md.js`). ';
 out += P.source + ' Viikot 12–52 ovat jatko-ohjelma.\n\n';
-out += 'Tyypit: 🛌 lepo · 🚶 kävely · 🏃 juoksu · ⚡ vauhti · 🛣️ pitkä lenkki · 💪 oheisharjoitus · 🏁 tavoite/kisa\n\n';
-const icon = { rest: '🛌', walk: '🚶', run: '🏃', speed: '⚡', long: '🛣️', cross: '💪', race: '🏁' };
+out += 'Ohjelman voi aloittaa minä päivänä tahansa: P1 on aloituspäivä, P2 sitä seuraava jne. '
+  + 'Kaikki harjoitukset sopivat sekä juoksumatolle että ulos.\n\n';
+out += 'Tyypit: 🛌 lepo · 🚶 kävely · 🏃 juoksu · ⚡ vauhti · 🛣️ pitkä lenkki · 💪 oheisharjoitus · 🏁 tavoite/testi\n\n';
+const icon = { rest: '🛌', walk: '🚶', run: '🏃', speed: '⚡', long: '🛣️', cross: '💪', goal: '🏁' };
 
 for (const ph of P.phases) {
   out += `## ${ph.id}. ${ph.fi} (viikot ${ph.weeks[0]}–${ph.weeks[1]})\n\n`;

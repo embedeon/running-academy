@@ -10,14 +10,20 @@ A small web app that takes you from walking to running in one year, with progres
 |---|---|---|---|
 | 1 | 1–11 | From walking to running | 10 km |
 | 2 | 12–16 | Making running a habit (4 runs + strength) | 60 min long run |
-| 3 | 17–20 | Speed and hills | 5 km test (wk 20) |
-| 4 | 21–24 | 10 km race | 10 km race (wk 24) |
+| 3 | 17–20 | Speed and inclines | 5 km test (wk 20) |
+| 4 | 21–24 | 10 km time trial | 10 km time trial (wk 24) |
 | 5 | 25–28 | Recovery and variety | – |
 | 6 | 29–42 | Half marathon (long run 12 → 19 km) | 21.1 km (wk 42) |
 | 7 | 43–44 | Recovery | – |
-| 8 | 45–52 | Winter season and 5 km best | 5 km time trial + 10 km year-end run |
+| 8 | 45–52 | Speed block and 5 km best | 5 km time trial + 10 km year-end run |
 
 Every 4th week is a lighter (cut-back) week, and the long run grows by no more than about 10 % a week.
+
+The program doesn't depend on season, weather or a race calendar. You can start it on any day: day 1 is the start
+date and every program week runs day 1–7 from there. Every session works on a treadmill or outside. Weeks 1–11 were
+originally written as out-and-back routes ("turn around and walk home"), so they are rewritten as continuous sessions
+with the same walking and running minutes. The goals are time trials you run yourself, not races on fixed dates.
+`tools/check-program.js` fails if season-, weather-, route- or race-specific wording slips back in.
 The whole year as a printable table is in [`PROGRAM.md`](PROGRAM.md), in Finnish.
 
 ## The app
@@ -27,7 +33,7 @@ The whole year as a printable table is in [`PROGRAM.md`](PROGRAM.md), in Finnish
   Tap the circle to mark a day done (it turns green with a ✓). Tap the text to see details, mark the day skipped, or add a note.
   Past days that were never marked get a dashed amber circle.
 - **Progress:** workouts done, how much of the plan is done so far, streak of full weeks, week heatmap, milestones and phases.
-- **Settings:** start date, or "I am currently on week N"; a button to mark all earlier days as done (useful if you
+- **Settings:** start date (any day), or "I am currently on week N"; a button to mark all earlier days as done (useful if you
   already followed the paper version); JSON backup export and import; Finnish/English.
 
 Data is stored in the browser's `localStorage`. The app has no backend, no build step and no dependencies. It works
@@ -53,7 +59,7 @@ Your training log is not affected: it stays in each visitor's own browser.
 
 ## Editing the program
 
-The program lives in [`js/program.js`](js/program.js). Each day has a type (`rest | walk | run | speed | long | cross | race`)
+The program lives in [`js/program.js`](js/program.js). Each day has a type (`rest | walk | run | speed | long | cross | goal`)
 and Finnish and English text. After editing:
 
 ```sh

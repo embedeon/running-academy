@@ -4,10 +4,13 @@
  * Weeks 1–11 are the original "Juoksuohjelma" (Porin kaupungin sivistystoimiala,
  * Liikuntayksikkö; lähde KuntoPlus 4/02), transcribed as-is.
  * Weeks 12–52 continue it with the same gradual progression:
- *   10 km -> habit & base -> speed -> 10 km race -> half marathon -> 5 km best.
+ *   10 km -> habit & base -> speed -> 10 km time trial -> half marathon -> 5 km best.
+ *
+ * The program is independent of season, weather and location: every session works
+ * on a treadmill or outside, and it can be started on any day.
  *
  * Each day: { type, fi, en }
- *   type: rest | walk | run | speed | long | cross | race
+ *   type: rest | walk | run | speed | long | cross | goal
  *
  * Plain script (no modules) so index.html also works when opened from disk.
  */
@@ -34,8 +37,8 @@
       `Strength ${min} min: squats, lunges, plank, calf raises and glute bridges (3 rounds).`);
   const crossTrain = (min) =>
     d('cross',
-      `Vaihtoehtoinen liikunta ${min} min: pyöräily, uinti, sauvakävely tai hiihto.`,
-      `Cross-training ${min} min: cycling, swimming, Nordic walking or skiing.`);
+      `Vaihtoehtoinen liikunta ${min} min: pyöräily, uinti, soutu tai muu kestävyysliikunta.`,
+      `Cross-training ${min} min: cycling, swimming, rowing or other endurance exercise.`);
   const mobility = (min) =>
     d('cross',
       `Liikkuvuus tai jooga ${min} min. Keskity lonkkiin, pohkeisiin ja takareisiin.`,
@@ -54,16 +57,16 @@
       `Tempo run: 10 min warm-up, ${min} min comfortably hard steady pace, 10 min cool-down.`);
   const hills = (n, sec) =>
     d('speed',
-      `Mäkiharjoitus: lämmittele 15 min, juokse ${n} x ${sec} s ylämäkeen reippaasti, kävele tai hölkkää alas. Loppuverryttely 10 min.`,
-      `Hill session: 15 min warm-up, ${n} x ${sec} s brisk uphill, walk or jog down. 10 min cool-down.`);
+      `Nousuvedot: lämmittele 15 min, juokse ${n} x ${sec} s reippaasti nousuun ja palaudu 1–2 min kävellen tai hölkäten. Loppuverryttely 10 min.`,
+      `Incline repeats: 15 min warm-up, ${n} x ${sec} s brisk on an incline, recover 1–2 min walking or jogging. 10 min cool-down.`);
   const intervals = (fiMain, enMain) =>
     d('speed',
       `Intervallit: lämmittele 15 min, ${fiMain}. Loppuverryttely 10 min.`,
       `Intervals: 15 min warm-up, ${enMain}. 10 min cool-down.`);
   const fartlek = (min) =>
     d('speed',
-      `Vauhtileikittely ${min} min: juokse välillä reippaammin esim. lyhtypylväältä toiselle ja palaudu hölkäten.`,
-      `Fartlek ${min} min: surge now and then, e.g. from one lamp post to the next, and recover by jogging.`);
+      `Vauhtileikittely ${min} min: juokse välillä reippaammin esim. 30–60 s kerrallaan, ja palaudu hölkäten.`,
+      `Fartlek ${min} min: surge now and then, e.g. 30–60 s at a time, and recover by jogging.`);
 
   const PHASES = [
     { id: 1, weeks: [1, 11],
@@ -71,9 +74,9 @@
     { id: 2, weeks: [12, 16],
       fi: 'Juoksusta tapa', en: 'Making running a habit' },
     { id: 3, weeks: [17, 20],
-      fi: 'Vauhtia ja mäkiä', en: 'Speed and hills' },
+      fi: 'Vauhtia ja nousuja', en: 'Speed and inclines' },
     { id: 4, weeks: [21, 24],
-      fi: '10 km kilpailu', en: '10 km race' },
+      fi: '10 km aika-ajo', en: '10 km time trial' },
     { id: 5, weeks: [25, 28],
       fi: 'Palautuminen ja monipuolisuus', en: 'Recovery and variety' },
     { id: 6, weeks: [29, 42],
@@ -81,7 +84,7 @@
     { id: 7, weeks: [43, 44],
       fi: 'Palautuminen', en: 'Recovery' },
     { id: 8, weeks: [45, 52],
-      fi: 'Talvikausi ja 5 km ennätys', en: 'Winter season and 5 km best' },
+      fi: 'Vauhtijakso ja 5 km ennätys', en: 'Speed block and 5 km best' },
   ];
 
   // Notes shown above a week (optional).
@@ -89,18 +92,18 @@
     12: ['Palautumisviikko 10 km jälkeen.', 'Recovery week after the 10 km.'],
     13: ['Neljä juoksua viikossa ja yksi lihaskuntoharjoitus.', 'Four runs a week plus one strength session.'],
     16: ['Kevennysviikko – keho vahvistuu levossa.', 'Cut-back week – your body gets stronger while resting.'],
-    17: ['Mukaan tulevat mäet ja vedot.', 'Hills and strides come in.'],
+    17: ['Mukaan tulevat nousuvedot ja rennot vedot.', 'Incline repeats and strides come in.'],
     20: ['Kevennysviikko ja 5 km testi.', 'Cut-back week and 5 km test.'],
-    24: ['Kilpailuviikko: 10 km!', 'Race week: 10 km!'],
+    24: ['Aika-ajoviikko: 10 km!', 'Time trial week: 10 km!'],
     25: ['Palautumista ja vaihtelua.', 'Recovery and variety.'],
     28: ['Kevennysviikko.', 'Cut-back week.'],
     29: ['14 viikkoa puolimaratoniin. Pitkä lenkki mitataan nyt kilometreinä.', '14 weeks to the half marathon. The long run is now measured in kilometres.'],
     32: ['Kevennysviikko.', 'Cut-back week.'],
     36: ['Kevennysviikko.', 'Cut-back week.'],
     40: ['Keventely alkaa.', 'Taper begins.'],
-    42: ['Kilpailuviikko: puolimaraton 21,1 km!', 'Race week: half marathon 21.1 km!'],
+    42: ['Tavoiteviikko: puolimaraton 21,1 km!', 'Goal week: half marathon 21.1 km!'],
     43: ['Palautumisviikko.', 'Recovery week.'],
-    45: ['Talvella voit juosta myös sisällä juoksumatolla. Muista liukuesteet!', 'In winter you can also use a treadmill. Remember ice grips!'],
+    45: ['Viimeinen jakso: haetaan vauhtia 5 km:lle.', 'Final phase: building speed for 5 km.'],
     48: ['Kevennysviikko.', 'Cut-back week.'],
     52: ['Viimeinen viikko: 5 km aika-ajo ja vuoden päätöslenkki.', 'Final week: 5 km time trial and year-end run.'],
   };
@@ -108,83 +111,83 @@
   const WEEKS = [
     // ---------------- Original program (weeks 1–11) ----------------
     /* 1 */ [
-      d('run', 'Kävele 5 min, juokse 2 min. Pidä pieni tauko, käänny takaisin ja toista harjoitus kotimatkalla.',
-        'Walk 5 min, run 2 min. Take a short break, turn around and repeat on the way home.'),
+      d('run', 'Kävele 5 min, juokse 2 min. Pidä pieni tauko ja toista: kävele 5 min, juokse 2 min.',
+        'Walk 5 min, run 2 min. Take a short break and repeat: walk 5 min, run 2 min.'),
       d('walk', 'Kävele 30 min lenkki.', 'Go for a 30 min walk.'),
       d('rest', 'Pidä vapaapäivä, nosta jalat vähäksi aikaa ylös.', 'Take a day off and put your feet up for a while.'),
-      d('run', 'Kävele 5 min, juokse 2 min. Pidä pieni tauko, käänny takaisin ja toista harjoitus kotimatkalla.',
-        'Walk 5 min, run 2 min. Take a short break, turn around and repeat on the way home.'),
-      d('run', 'Kävele reippaasti 5 min, juokse 2–3 min. Käänny ja kävele kotiin.',
-        'Walk briskly 5 min, run 2–3 min. Turn around and walk home.'),
+      d('run', 'Kävele 5 min, juokse 2 min. Pidä pieni tauko ja toista: kävele 5 min, juokse 2 min.',
+        'Walk 5 min, run 2 min. Take a short break and repeat: walk 5 min, run 2 min.'),
+      d('run', 'Kävele reippaasti 5 min, juokse 2–3 min ja kävele lopuksi 5 min.',
+        'Walk briskly 5 min, run 2–3 min, then walk 5 min.'),
       d('rest', 'Pidä vapaapäivä tai käy rauhallisella kävelyllä.', 'Take a day off or go for an easy walk.'),
-      d('run', 'Kävele 5 min, juokse 2 min. Pidä pieni tauko, käänny takaisin ja toista harjoitus kotimatkalla.',
-        'Walk 5 min, run 2 min. Take a short break, turn around and repeat on the way home.'),
+      d('run', 'Kävele 5 min, juokse 2 min. Pidä pieni tauko ja toista: kävele 5 min, juokse 2 min.',
+        'Walk 5 min, run 2 min. Take a short break and repeat: walk 5 min, run 2 min.'),
     ],
     /* 2 */ [
       d('walk', 'Tee vähintään 30 min reipas kävelylenkki.', 'Take a brisk walk of at least 30 min.'),
-      d('run', 'Kävele 5 min, juokse 4 min. Käänny takaisin ja toista harjoitus kotimatkalla.',
-        'Walk 5 min, run 4 min. Turn around and repeat on the way home.'),
+      d('run', 'Kävele 5 min, juokse 4 min. Toista vielä kerran: kävele 5 min, juokse 4 min.',
+        'Walk 5 min, run 4 min. Repeat once more: walk 5 min, run 4 min.'),
       d('rest', 'Vapaapäivä. Voit katsella vaikka videoita ja napostella hieman karkkia, olet sen ansainnut.',
         'Day off. Watch some videos and nibble a little candy – you have earned it.'),
-      d('run', 'Kävele 3 min, juokse 4 min. Pidä pieni tauko, käänny ja juokse 4 min, kävele 3 min.',
-        'Walk 3 min, run 4 min. Short break, turn around, run 4 min and walk 3 min.'),
-      d('run', 'Kävele 5 min rauhallisesti, juokse 4 min. Käänny takaisin ja toista harjoitus kotimatkalla.',
-        'Walk 5 min easy, run 4 min. Turn around and repeat on the way home.'),
+      d('run', 'Kävele 3 min, juokse 4 min. Pidä pieni tauko, juokse 4 min ja kävele 3 min.',
+        'Walk 3 min, run 4 min. Short break, then run 4 min and walk 3 min.'),
+      d('run', 'Kävele 5 min rauhallisesti, juokse 4 min. Toista vielä kerran.',
+        'Walk 5 min easy, run 4 min. Repeat once more.'),
       d('walk', 'Kävele vähintään 45 min niin, että hikoilet hieman.', 'Walk at least 45 min so that you sweat a little.'),
       d('rest', 'Vapaa. Hemmottele itseäsi, sillä ansaitset sen.', 'Rest. Pamper yourself – you deserve it.'),
     ],
     /* 3 */ [
-      d('run', 'Kävele 5 min, juokse 4 min. Käänny takaisin ja toista harjoitus kotimatkalla.',
-        'Walk 5 min, run 4 min. Turn around and repeat on the way home.'),
-      d('run', 'Kävele 3 min, juokse 4 min. Pidä pieni tauko, käänny ja juokse 4 min, kävele 3 min.',
-        'Walk 3 min, run 4 min. Short break, turn around, run 4 min and walk 3 min.'),
+      d('run', 'Kävele 5 min, juokse 4 min. Toista vielä kerran: kävele 5 min, juokse 4 min.',
+        'Walk 5 min, run 4 min. Repeat once more: walk 5 min, run 4 min.'),
+      d('run', 'Kävele 3 min, juokse 4 min. Pidä pieni tauko, juokse 4 min ja kävele 3 min.',
+        'Walk 3 min, run 4 min. Short break, then run 4 min and walk 3 min.'),
       d('walk', 'Kävele vähintään 30 min vauhtia, joka saa hien pintaan.', 'Walk at least 30 min at a pace that makes you sweat.'),
       d('rest', 'Vapaa! Olet oikealla tiellä!', 'Rest! You are on the right track!'),
-      d('run', 'Kävele 2 min, juokse 5 min ja pidä pieni tauko. Käänny, juokse 5 min ja kävele 2 min.',
-        'Walk 2 min, run 5 min and take a short break. Turn around, run 5 min and walk 2 min.'),
+      d('run', 'Kävele 2 min, juokse 5 min ja pidä pieni tauko. Juokse sitten 5 min ja kävele 2 min.',
+        'Walk 2 min, run 5 min and take a short break. Then run 5 min and walk 2 min.'),
       d('rest', 'Vapaa. Teet jo parin kilometrin lenkkejä ja edistyt koko ajan!',
         'Rest. You are already doing a couple of kilometres and improving all the time!'),
       d('walk', 'Kävele vähintään 45 min. Mieluusti niin kovaa, että hikoilet.', 'Walk at least 45 min, preferably hard enough to sweat.'),
     ],
     /* 4 */ [
-      d('run', 'Kävele 2 min, juokse 5 min, pidä pieni tauko. Käänny, juokse 5 min ja kävele 2 min.',
-        'Walk 2 min, run 5 min, short break. Turn around, run 5 min and walk 2 min.'),
-      d('run', 'Kävele 1 min, juokse 5 min. Pidä 0,5 min tauko. Käänny, juokse 5 min ja kävele 1 min.',
-        'Walk 1 min, run 5 min. 30 s break. Turn around, run 5 min and walk 1 min.'),
+      d('run', 'Kävele 2 min, juokse 5 min, pidä pieni tauko. Juokse 5 min ja kävele 2 min.',
+        'Walk 2 min, run 5 min, short break. Run 5 min and walk 2 min.'),
+      d('run', 'Kävele 1 min, juokse 5 min. Pidä 0,5 min tauko. Juokse 5 min ja kävele 1 min.',
+        'Walk 1 min, run 5 min. 30 s break. Run 5 min and walk 1 min.'),
       d('rest', 'Vapaa. Tänään et saa harrastaa mitään liikuntaa, ainoastaan rentoutua.',
         'Rest. No exercise at all today – just relax.'),
-      d('run', 'Kävele 1 min, juokse 7 min, kävele 2 min, juokse 7 min, käänny ja kävele reippaasti kotiin.',
-        'Walk 1 min, run 7 min, walk 2 min, run 7 min, then turn around and walk briskly home.'),
-      d('run', 'Juokse 15 min rauhallisesti, käänny ja kävele kotiin.', 'Run 15 min easy, turn around and walk home.'),
-      d('rest', 'Vapaa. Pystyt jo juoksemaan 2,5 km ja koko lenkin pituus on 5 km.',
-        'Rest. You can already run 2.5 km and the whole loop is 5 km.'),
+      d('run', 'Kävele 1 min, juokse 7 min, kävele 2 min, juokse 7 min ja kävele lopuksi reippaasti 5 min.',
+        'Walk 1 min, run 7 min, walk 2 min, run 7 min, then walk briskly 5 min.'),
+      d('run', 'Juokse 15 min rauhallisesti ja kävele lopuksi 10 min.', 'Run 15 min easy, then walk 10 min.'),
+      d('rest', 'Vapaa. Pystyt jo juoksemaan 15 min yhtäjaksoisesti!',
+        'Rest. You can already run 15 min without stopping!'),
       d('walk', 'Tee rauhallinen kävelylenkki. Kävele niin pitkään kuin huvittaa.', 'Take an easy walk – as long as you feel like.'),
     ],
     /* 5 */ [
-      d('run', 'Juokse 7,5 min. Käänny pitämättä taukoa ja juokse 7,5 min kotiin.',
-        'Run 7.5 min. Turn around without a break and run 7.5 min home.'),
+      d('run', 'Juokse 15 min yhtäjaksoisesti ilman taukoa.',
+        'Run 15 min continuously, without a break.'),
       d('walk', 'Kävele 30 min rauhallinen lenkki.', 'Easy 30 min walk.'),
-      d('run', 'Juokse 10 min ja käänny. Juokse 10 min taukoja pitämättä kotia kohti.',
-        'Run 10 min and turn around. Run 10 min home without breaks.'),
+      d('run', 'Juokse 20 min taukoja pitämättä.',
+        'Run 20 min without breaks.'),
       d('rest', 'Vapaa. Hemmottele itseäsi, olet kohta tavoitteessasi!', 'Rest. Pamper yourself – you are almost at your goal!'),
       d('walk', 'Tee tunnin kävelylenkki.', 'Take a one-hour walk.'),
-      d('run', 'Juokse 15 min rauhallisesti. Käänny, kävele ja juokse kotiin.',
-        'Run 15 min easy. Turn around, then walk and run home.'),
+      d('run', 'Juokse 15 min rauhallisesti. Jatka vielä 15 min vuorotellen kävellen ja juosten.',
+        'Run 15 min easy. Continue for 15 min more, alternating walking and running.'),
       d('rest', 'Rentoudu!', 'Relax!'),
     ],
     /* 6 */ [
-      d('run', 'Juokse 9 min. Käänny pitämättä taukoa. Juokse 9 min kotiin.',
-        'Run 9 min. Turn around without a break. Run 9 min home.'),
+      d('run', 'Juokse 18 min yhtäjaksoisesti ilman taukoa.',
+        'Run 18 min continuously, without a break.'),
       d('walk', 'Tee 30 min rauhallinen kävelylenkki.', 'Take an easy 30 min walk.'),
-      d('run', 'Juokse 12 min, käänny. Juokse 12 min kotia kohti taukoa pitämättä.',
-        'Run 12 min, turn around. Run 12 min home without a break.'),
+      d('run', 'Juokse 24 min taukoa pitämättä.',
+        'Run 24 min without a break.'),
       d('rest', 'Vapaa. Unohda kaikki muu ja ihmettele vain, kuinka hyvin olet edistynyt.',
         'Rest. Forget everything else and just marvel at how well you have progressed.'),
       d('walk', 'Tee 0,5–1 tunnin kävelylenkki.', 'Take a 30–60 min walk.'),
       d('run', 'Juokse lyhyehkö lenkki vain huvin vuoksi. Älä yritä suorittaa mitään.',
-        'Run a shortish loop just for fun. Do not try to achieve anything.'),
-      d('race', 'Mittaa 5 km:n matka ja juokse se. Tänään olet saavuttanut tavoitteesi!',
-        'Measure a 5 km route and run it. Today you have reached your goal!'),
+        'Go for a shortish run just for fun. Do not try to achieve anything.'),
+      d('goal', 'Juokse 5 km. Tänään olet saavuttanut tavoitteesi!',
+        'Run 5 km. Today you have reached your goal!'),
     ],
     /* 7 */ [
       d('rest', 'Rentoudu ja nauti eilisestä saavutuksesta.', 'Relax and enjoy yesterday’s achievement.'),
@@ -193,7 +196,7 @@
       d('run', 'Juokse 5 km lenkki, tempoa vaihdellen.', 'Run 5 km, varying the pace.'),
       d('walk', 'Kävelylenkki 45 min.', '45 min walk.'),
       d('rest', 'Vapaa. Rentoudu ja lataa akkuja huomiseksi!', 'Rest. Relax and recharge for tomorrow!'),
-      d('long', 'Juokse 5 km ja vielä 5 min. Kävele takaisin.', 'Run 5 km plus another 5 min. Walk back.'),
+      d('long', 'Juokse 5 km ja vielä 5 min. Kävele lopuksi 10 min.', 'Run 5 km plus another 5 min. Then walk 10 min.'),
     ],
     /* 8 */ [
       d('rest', 'Vapaa. Helli ajatusta siitä, miten hyvä olet!', 'Rest. Cherish the thought of how good you are!'),
@@ -204,12 +207,12 @@
       d('long', 'Juokse 5 km ja vielä 5 min päälle pitämättä taukoa välissä.',
         'Run 5 km and another 5 min on top without a break.'),
       d('walk', 'Tee tunnin kävelylenkki.', 'Take a one-hour walk.'),
-      d('run', 'Juokse rauhallisesti 20 min lenkki.', 'Run an easy 20 min loop.'),
+      d('run', 'Juokse rauhallisesti 20 min lenkki.', 'Run 20 min easy.'),
     ],
     /* 9 */ [
       d('rest', 'Vapaa. Rentoudu lukien tai televisiota katsellen.', 'Rest. Relax by reading or watching TV.'),
-      d('long', 'Juokse 5 km ja vielä 5 min. Käänny kotiinpäin ja juokse vielä 5 min.',
-        'Run 5 km and another 5 min. Turn for home and run another 5 min.'),
+      d('long', 'Juokse 5 km ja sen päälle vielä 10 min.',
+        'Run 5 km and then another 10 min.'),
       d('walk', 'Tee 30 min kävelylenkki.', 'Take a 30 min walk.'),
       d('rest', 'Vapaa. Lataa akut huomista harjoitusta varten!', 'Rest. Recharge for tomorrow’s workout!'),
       d('speed', 'Juokse 5 km vaihdellen tempoa minuutin välein.', 'Run 5 km, changing the pace every minute.'),
@@ -218,16 +221,16 @@
     ],
     /* 10 */ [
       d('rest', 'Vapaa. Tänään et saa harrastaa liikuntaa.', 'Rest. No exercise today.'),
-      d('long', 'Juokse 5 km + 10 min. Käänny ja juokse rauhallisesti vielä 10 min.',
-        'Run 5 km + 10 min. Turn around and run another 10 min easy.'),
+      d('long', 'Juokse 5 km + 10 min ja jatka rauhallisesti vielä 10 min.',
+        'Run 5 km + 10 min, then another 10 min easy.'),
       d('rest', 'Vapaa. Juoksit eilen jo 8–9 km!', 'Rest. You ran 8–9 km yesterday!'),
       d('walk', 'Tee 30 min kävelylenkki.', 'Take a 30 min walk.'),
       d('speed', 'Juokse 30 min intervalleina, joiden määrän ja vauhdin määräät itse (pyrähdellen).',
         'Run 30 min as intervals – you choose how many and how fast (short bursts).'),
       d('rest', 'Vapaa. Rentoudu täysin. Pyydä jotakuta hieromaan jalkojasi.',
         'Rest. Relax completely. Ask someone to massage your legs.'),
-      d('long', 'Juokse 40 min rauhallisesti. 20 min yhteen suuntaan ja sitten kotiin.',
-        'Run 40 min easy: 20 min out and then back home.'),
+      d('long', 'Juokse 40 min rauhallisesti.',
+        'Run 40 min easy.'),
     ],
     /* 11 */ [
       d('rest', 'Vapaa. Olet lähellä tavoitettasi.', 'Rest. You are close to your goal.'),
@@ -238,8 +241,8 @@
       d('walk', 'Kävele 30 min reippaasti.', 'Walk 30 min briskly.'),
       d('walk', 'Kävele pieni lenkki ja syö järkevästi. Huomenna on se suuri päivä!',
         'Take a short walk and eat sensibly. Tomorrow is the big day!'),
-      d('race', 'Juokse 5 km lenkki kahdesti pitämättä taukoa välillä. Pystyt juoksemaan jo 10 km!',
-        'Run the 5 km loop twice without a break. You can now run 10 km!'),
+      d('goal', 'Juokse 10 km pitämättä taukoa. Pystyt juoksemaan jo 10 km!',
+        'Run 10 km without a break. You can now run 10 km!'),
     ],
 
     // ---------------- Phase 2: Making running a habit (12–16) ----------------
@@ -294,9 +297,9 @@
       longMin(45),
     ],
 
-    // ---------------- Phase 3: Speed and hills (17–20) ----------------
+    // ---------------- Phase 3: Speed and inclines (17–20) ----------------
     /* 17 */ [
-      rest('Vapaa. Tällä jaksolla mukaan tulevat mäet ja vedot.', 'Rest. This phase adds hills and strides.'),
+      rest('Vapaa. Tällä jaksolla mukaan tulevat nousuvedot ja rennot vedot.', 'Rest. This phase adds incline repeats and strides.'),
       easy(40, 6),
       strength(25),
       hills(6, 30),
@@ -305,7 +308,7 @@
       longMin(65),
     ],
     /* 18 */ [
-      rest('Vapaa. Mäet tekevät sinusta vahvemman!', 'Rest. Hills make you stronger!'),
+      rest('Vapaa. Nousut tekevät sinusta vahvemman!', 'Rest. Inclines make you stronger!'),
       easy(40),
       strength(25),
       intervals('5 x 2 min reippaasti, 2 min hölkkä välissä', '5 x 2 min brisk with 2 min jog between'),
@@ -329,15 +332,15 @@
       d('run', 'Juokse rauhallisesti 20 min ja 4 x 20 s rennot vedot. Valmistaudu lauantain testiin.',
         'Easy 20 min run and 4 x 20 s strides. Get ready for Saturday’s test.'),
       rest(),
-      d('race', '5 km testijuoksu: lämmittele 10 min ja juokse 5 km niin kovaa kuin jaksat tasaisesti. Kirjaa aika muistiin ja vertaa viikkoon 6!',
+      d('goal', '5 km testijuoksu: lämmittele 10 min ja juokse 5 km niin kovaa kuin jaksat tasaisesti. Kirjaa aika muistiin ja vertaa viikkoon 6!',
         '5 km time trial: 10 min warm-up, then run 5 km as hard as you can sustain. Write down your time and compare with week 6!'),
       d('run', 'Palauttava 30 min hölkkä.', 'Easy 30 min recovery jog.'),
     ],
 
-    // ---------------- Phase 4: 10 km race (21–24) ----------------
+    // ---------------- Phase 4: 10 km time trial (21–24) ----------------
     /* 21 */ [
-      rest('Vapaa. Seuraava tavoite: 10 km kilpailu kolmen viikon päästä!',
-        'Rest. Next goal: a 10 km race in three weeks!'),
+      rest('Vapaa. Seuraava tavoite: 10 km aika-ajo kolmen viikon päästä!',
+        'Rest. Next goal: a 10 km time trial in three weeks!'),
       easy(45),
       strength(25),
       tempo(15),
@@ -364,15 +367,15 @@
       longMin(90, 'Pisin lenkkisi tähän asti!', 'Your longest run so far!'),
     ],
     /* 24 */ [
-      rest('Vapaa. Kilpailuviikko – nyt kevennetään.', 'Rest. Race week – time to taper.'),
+      rest('Vapaa. Aika-ajoviikko – nyt kevennetään.', 'Rest. Time trial week – time to taper.'),
       easy(35, 4),
       walk(30),
-      d('run', 'Juokse 30 min, josta 3 x 3 min kilpailuvauhtia.', 'Run 30 min including 3 x 3 min at race pace.'),
-      rest('Vapaa. Valmistele varusteet ja tutustu reittiin.', 'Rest. Prepare your gear and check the course.'),
+      d('run', 'Juokse 30 min, josta 3 x 3 min tavoitevauhtia.', 'Run 30 min including 3 x 3 min at goal pace.'),
+      rest('Vapaa. Valmistele varusteet ja lepää hyvin.', 'Rest. Prepare your gear and rest well.'),
       d('run', 'Kevyt 15 min hölkkä ja 4 rentoa vetoa. Huomenna on suuri päivä!',
         'Light 15 min jog and 4 relaxed strides. Tomorrow is the big day!'),
-      d('race', '10 km kilpailu tai aika-ajo! Aloita maltillisesti ja kiristä loppua kohti. Puoli vuotta sitten juoksit 2 min kerrallaan!',
-        '10 km race or time trial! Start conservatively and speed up towards the end. Half a year ago you ran 2 min at a time!'),
+      d('goal', '10 km aika-ajo! Aloita maltillisesti ja kiristä loppua kohti. Puoli vuotta sitten juoksit 2 min kerrallaan!',
+        '10 km time trial! Start conservatively and speed up towards the end. Half a year ago you ran 2 min at a time!'),
     ],
 
     // ---------------- Phase 5: Recovery and variety (25–28) ----------------
@@ -383,8 +386,8 @@
       rest(),
       crossTrain(45),
       easy(30),
-      d('run', 'Juokse rauhallisesti 45 min luonnossa – polut ja metsät tekevät hyvää.',
-        'Easy 45 min run in nature – trails and forests do you good.'),
+      d('run', 'Juokse rauhallisesti 45 min. Nauti juoksemisesta ilman vauhtitavoitteita.',
+        'Easy 45 min run. Enjoy running with no pace targets.'),
     ],
     /* 26 */ [
       rest(),
@@ -458,7 +461,7 @@
       intervals('3 x 2 km puolimaratonvauhtia, 3 min hölkkä välissä', '3 x 2 km at half marathon pace with 3 min jog between'),
       rest(),
       easy(45),
-      longKm(15, 'Ota mukaan juotavaa.', 'Take a drink with you.'),
+      longKm(15, 'Juo tarvittaessa matkan aikana.', 'Drink during the run if needed.'),
     ],
     /* 34 */ [
       rest(),
@@ -513,7 +516,7 @@
       intervals('3 x 3 km puolimaratonvauhtia, 3 min hölkkä välissä', '3 x 3 km at half marathon pace with 3 min jog between'),
       rest(),
       easy(45),
-      longKm(19, 'Pisin lenkki ennen kilpailua!', 'Your longest run before the race!'),
+      longKm(19, 'Pisin lenkki ennen puolimaratonia!', 'Your longest run before the half marathon!'),
     ],
     /* 40 */ [
       rest('Vapaa. Keventely alkaa – luota tekemääsi työhön.', 'Rest. The taper begins – trust the work you have done.'),
@@ -529,20 +532,20 @@
       easy(45, 6),
       crossTrain(30),
       intervals('2 x 2 km puolimaratonvauhtia, 3 min hölkkä välissä', '2 x 2 km at half marathon pace with 3 min jog between'),
-      rest('Vapaa. Ilmoittaudu kisaan, jos et vielä ole!', 'Rest. Sign up for the race if you have not yet!'),
+      rest('Vapaa. Suunnittele puolimaratonpäivän ruokailu ja juominen.', 'Rest. Plan your eating and drinking for half marathon day.'),
       easy(30),
       longKm(10),
     ],
     /* 42 */ [
-      rest('Vapaa. Kilpailuviikko! Nuku hyvin koko viikon.', 'Rest. Race week! Sleep well all week.'),
+      rest('Vapaa. Tavoiteviikko! Nuku hyvin koko viikon.', 'Rest. Goal week! Sleep well all week.'),
       easy(35, 4),
       rest('Vapaa tai kevyt 20 min kävely.', 'Rest or an easy 20 min walk.'),
       d('run', 'Juokse 25 min, josta 3 x 2 min puolimaratonvauhtia.', 'Run 25 min including 3 x 2 min at half marathon pace.'),
       rest('Vapaa. Syö hiilihydraattipitoisesti ja valmistele varusteet.', 'Rest. Eat carbohydrate-rich meals and prepare your gear.'),
       d('run', 'Kevyt 15 min hölkkä ja 4 rentoa vetoa. Huomenna on se suuri päivä!',
         'Light 15 min jog and 4 relaxed strides. Tomorrow is the big day!'),
-      d('race', 'PUOLIMARATON 21,1 km! Aloita rauhallisesti, juo juomapisteillä ja nauti matkasta.',
-        'HALF MARATHON 21.1 km! Start easy, drink at the aid stations and enjoy the journey.'),
+      d('goal', 'PUOLIMARATON 21,1 km! Aloita rauhallisesti, juo tarvittaessa ja nauti matkasta.',
+        'HALF MARATHON 21.1 km! Start easy, drink as needed and enjoy the journey.'),
     ],
 
     // ---------------- Phase 7: Recovery (43–44) ----------------
@@ -565,7 +568,7 @@
       longMin(60),
     ],
 
-    // ---------------- Phase 8: Winter season and 5 km best (45–52) ----------------
+    // ---------------- Phase 8: Speed block and 5 km best (45–52) ----------------
     /* 45 */ [
       rest('Vapaa. Viimeinen jakso: haetaan vauhtia 5 km:lle.', 'Rest. Final phase: building speed for 5 km.'),
       easy(45),
@@ -616,7 +619,7 @@
       easy(50, 6),
       strength(25),
       tempo(25),
-      rest('Vapaa. Nauti talven pimeistä illoista – heijastin mukaan lenkille!', 'Rest. Enjoy the dark winter evenings – wear a reflector on your runs!'),
+      rest('Vapaa. Hyvä palautuminen on osa harjoittelua.', 'Rest. Good recovery is part of training.'),
       easy(40),
       longMin(80),
     ],
@@ -635,7 +638,7 @@
       walk(30),
       d('run', 'Juokse 20 min, josta 3 x 1 min 5 km:n vauhtia.', 'Run 20 min including 3 x 1 min at 5 km pace.'),
       rest('Vapaa. Huomenna aika-ajo.', 'Rest. Time trial tomorrow.'),
-      d('race', '5 km aika-ajo: lämmittele 15 min ja juokse kaikkesi. Vertaa aikaa viikkoihin 6 ja 20!',
+      d('goal', '5 km aika-ajo: lämmittele 15 min ja juokse kaikkesi. Vertaa aikaa viikkoihin 6 ja 20!',
         '5 km time trial: 15 min warm-up, then give it everything. Compare with weeks 6 and 20!'),
       d('long', 'Vuoden päätöslenkki: juokse 10 km rauhallisesti nauttien. Vuosi sitten kävelit 5 min ja juoksit 2 min. Onneksi olkoon, olet juoksija!',
         'Year-end run: an easy, joyful 10 km. A year ago you walked 5 min and ran 2 min. Congratulations, you are a runner!'),
@@ -648,7 +651,7 @@
     { week: 11, day: 6, fi: 'Ensimmäinen 10 km', en: 'First 10 km' },
     { week: 15, day: 6, fi: 'Tunti juoksua', en: 'One hour of running' },
     { week: 20, day: 5, fi: '5 km testi', en: '5 km test' },
-    { week: 24, day: 6, fi: '10 km kilpailu', en: '10 km race' },
+    { week: 24, day: 6, fi: '10 km aika-ajo', en: '10 km time trial' },
     { week: 39, day: 6, fi: '19 km pitkä lenkki', en: '19 km long run' },
     { week: 42, day: 6, fi: 'Puolimaraton', en: 'Half marathon' },
     { week: 52, day: 5, fi: '5 km aika-ajo', en: '5 km time trial' },

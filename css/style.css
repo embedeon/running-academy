@@ -15,7 +15,7 @@
   --type-speed: #fdebd9;
   --type-long: #ece6fb;
   --type-cross: #f1f4dd;
-  --type-race: #fde3e3;
+  --type-goal: #fde3e3;
   --radius: 12px;
   --done-bg: #e9f7ee;
   --check-ring: #b4c0cd;
@@ -36,7 +36,7 @@
     --type-speed: #33261a;
     --type-long: #262037;
     --type-cross: #2a2c1c;
-    --type-race: #3a1f22;
+    --type-goal: #3a1f22;
     --done-bg: #16301f;
     --check-ring: #4a5767;
     --current-bg: #172538;
@@ -120,7 +120,7 @@ main { max-width: 1100px; margin: 0 auto; padding: 16px; }
 .badge.type-speed { background: var(--type-speed); }
 .badge.type-long { background: var(--type-long); }
 .badge.type-cross { background: var(--type-cross); }
-.badge.type-race { background: var(--type-race); }
+.badge.type-goal { background: var(--type-goal); }
 
 .status { font-size: .8rem; font-weight: 700; margin-left: 6px; }
 .status.done { color: var(--green); }
@@ -161,7 +161,7 @@ main { max-width: 1100px; margin: 0 auto; padding: 16px; }
 .cell.type-speed { --stripe: #e8892f; }
 .cell.type-long { --stripe: #8a6ad8; }
 .cell.type-cross { --stripe: #a7b23a; }
-.cell.type-race { --stripe: #e0484d; font-weight: 600; }
+.cell.type-goal { --stripe: #e0484d; font-weight: 600; }
 .cell.type-rest .cell-text, .cell.type-rest .row-text { color: var(--muted); }
 .cell:hover { border-color: var(--blue); border-left-color: var(--stripe); }
 .cell:focus-visible { outline: 3px solid var(--blue); outline-offset: 1px; }
@@ -304,4 +304,4 @@ dialog::backdrop { background: rgba(10, 20, 35, .5); }
 .legend-item.type-speed { --stripe: #e8892f; }
 .legend-item.type-long { --stripe: #8a6ad8; }
 .legend-item.type-cross { --stripe: #a7b23a; }
-.legend-item.type-race { --stripe: #e0484d; }
+.legend-item.type-goal { --stripe: #e0484d; }
