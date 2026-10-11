@@ -40,7 +40,7 @@
       language: 'Kieli', guideTitle: 'Ohjeita',
       guide: [
         ['Rauhallinen juoksu', 'Vauhti, jossa pystyt puhumaan kokonaisia lauseita. Suurin osa juoksuista on tätä.'],
-        ['Rennot vedot', 'Noin 20 s kiihdytys lähes kovaan vauhtiin rennosti, kävely- tai hölkkätauko välissä.'],
+        ['Kiihdytykset', 'Noin 20 s juoksu, jossa vauhti nousee tasaisesti lähes kovaksi. Pysy rentona – ei maksimivauhtia. Kävele välissä 1 min.'],
         ['Tempojuoksu', '”Mukavan raskas” tasainen vauhti, jossa puhe katkeilee.'],
         ['Vauhtileikittely', 'Vapaamuotoisia vauhdinvaihteluita fiiliksen mukaan.'],
         ['Mäkivedot', 'Lyhyet reippaat vedot ylämäkeen. Maltillinen jyrkkyys riittää. Halutessasi voit juosta vedot tasaisella.'],
@@ -82,7 +82,7 @@
       language: 'Language', guideTitle: 'Guide',
       guide: [
         ['Easy run', 'A pace at which you can speak in full sentences. Most runs are easy.'],
-        ['Strides', 'About 20 s relaxed acceleration to near-fast pace, walk or jog in between.'],
+        ['Accelerations', 'About 20 s of running where the pace rises smoothly to near-fast. Stay relaxed – not a sprint. Walk 1 min between.'],
         ['Tempo run', 'A “comfortably hard” steady pace where talking gets choppy.'],
         ['Fartlek', 'Free-form pace changes based on feel.'],
         ['Hill repeats', 'Short brisk efforts uphill. A moderate gradient is enough. If you prefer, run the repeats on the flat.'],

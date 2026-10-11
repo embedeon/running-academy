@@ -27,8 +27,8 @@
   const easy = (min, strides) =>
     strides
       ? d('run',
-          `Juokse rauhallisesti ${min} min ja lopuksi ${strides} x 20 s rennot vedot.`,
-          `Easy ${min} min run, then ${strides} x 20 s relaxed strides.`)
+          `Juokse rauhallisesti ${min} min. Juokse lopuksi ${strides} x 20 s kiihdyttäen rennosti lähes kovaan vauhtiin ja kävele välissä 1 min.`,
+          `Easy ${min} min run. Then run ${strides} x 20 s, speeding up smoothly to a near-fast pace, with a 1 min walk between.`)
       : d('run',
           `Juokse rauhallisesti ${min} min. Vauhti niin kevyt, että pystyt puhumaan.`,
           `Easy ${min} min run at a conversational pace.`);
@@ -88,7 +88,7 @@
     12: ['Palautumisviikko 10 km jälkeen.', 'Recovery week after the 10 km.'],
     13: ['Neljä juoksua ja yksi reipas kävely viikossa.', 'Four runs and one brisk walk a week.'],
     16: ['Kevennysviikko – keho vahvistuu levossa.', 'Cut-back week – your body gets stronger while resting.'],
-    17: ['Mukaan tulevat mäkivedot ja rennot vedot.', 'Hill repeats and strides come in.'],
+    17: ['Mukaan tulevat mäkiharjoitukset ja lyhyet kiihdytykset.', 'Hill repeats and short accelerations come in.'],
     20: ['Kevennysviikko ja 5 km testi.', 'Cut-back week and 5 km test.'],
     24: ['Aika-ajoviikko: 10 km!', 'Time trial week: 10 km!'],
     25: ['Palautumista ja rauhallista juoksua.', 'Recovery and easy running.'],
@@ -295,7 +295,7 @@
 
     // ---------------- Phase 3: Speed and hills (17–20) ----------------
     /* 17 */ [
-      rest('Vapaa. Tällä jaksolla mukaan tulevat mäkivedot ja rennot vedot.', 'Rest. This phase adds hill repeats and strides.'),
+      rest('Vapaa. Tällä jaksolla mukaan tulevat mäkiharjoitukset ja lyhyet kiihdytykset.', 'Rest. This phase adds hill repeats and short accelerations.'),
       easy(40, 6),
       walk(30),
       hills(6, 30),
@@ -325,8 +325,8 @@
       rest('Vapaa. Kevennysviikko ja lauantaina 5 km testi.', 'Rest. Cut-back week with a 5 km test on Saturday.'),
       easy(30),
       walk(30),
-      d('run', 'Juokse rauhallisesti 20 min ja 4 x 20 s rennot vedot. Valmistaudu lauantain testiin.',
-        'Easy 20 min run and 4 x 20 s strides. Get ready for Saturday’s test.'),
+      d('run', 'Juokse rauhallisesti 20 min. Juokse lopuksi 4 x 20 s kiihdyttäen rennosti lähes kovaan vauhtiin ja kävele välissä 1 min. Valmistaudu lauantain testiin.',
+        'Easy 20 min run. Then run 4 x 20 s, speeding up smoothly to a near-fast pace, with a 1 min walk between. Get ready for Saturday’s test.'),
       rest(),
       d('goal', '5 km testijuoksu: hölkkää ensin rauhallisesti 10 min ja juokse sitten 5 km niin kovaa kuin jaksat tasaisesti. Kirjaa aika muistiin ja vertaa viikkoon 6!',
         '5 km time trial: jog easy 10 min first, then run 5 km as hard as you can sustain. Write down your time and compare with week 6!'),
@@ -368,8 +368,8 @@
       walk(30),
       d('run', 'Juokse 30 min, josta 3 x 3 min tavoitevauhtia.', 'Run 30 min including 3 x 3 min at goal pace.'),
       rest('Vapaa. Valmistele varusteet ja lepää hyvin.', 'Rest. Prepare your gear and rest well.'),
-      d('run', 'Kevyt 15 min hölkkä ja 4 rentoa vetoa. Huomenna on suuri päivä!',
-        'Light 15 min jog and 4 relaxed strides. Tomorrow is the big day!'),
+      d('run', 'Hölkkää kevyesti 15 min. Juokse lopuksi 4 x 20 s kiihdyttäen rennosti lähes kovaan vauhtiin ja kävele välissä 1 min. Huomenna on suuri päivä!',
+        'Jog easy 15 min. Then run 4 x 20 s, speeding up smoothly to a near-fast pace, with a 1 min walk between. Tomorrow is the big day!'),
       d('goal', '10 km aika-ajo! Aloita maltillisesti ja kiristä loppua kohti. Puoli vuotta sitten juoksit 2 min kerrallaan!',
         '10 km time trial! Start conservatively and speed up towards the end. Half a year ago you ran 2 min at a time!'),
     ],
@@ -538,8 +538,8 @@
       rest('Vapaa tai kevyt 20 min kävely.', 'Rest or an easy 20 min walk.'),
       d('run', 'Juokse 25 min, josta 3 x 2 min puolimaratonvauhtia.', 'Run 25 min including 3 x 2 min at half marathon pace.'),
       rest('Vapaa. Syö hiilihydraattipitoisesti ja valmistele varusteet.', 'Rest. Eat carbohydrate-rich meals and prepare your gear.'),
-      d('run', 'Kevyt 15 min hölkkä ja 4 rentoa vetoa. Huomenna on se suuri päivä!',
-        'Light 15 min jog and 4 relaxed strides. Tomorrow is the big day!'),
+      d('run', 'Hölkkää kevyesti 15 min. Juokse lopuksi 4 x 20 s kiihdyttäen rennosti lähes kovaan vauhtiin ja kävele välissä 1 min. Huomenna on se suuri päivä!',
+        'Jog easy 15 min. Then run 4 x 20 s, speeding up smoothly to a near-fast pace, with a 1 min walk between. Tomorrow is the big day!'),
       d('goal', 'PUOLIMARATON 21,1 km! Aloita rauhallisesti, juo tarvittaessa ja nauti matkasta.',
         'HALF MARATHON 21.1 km! Start easy, drink as needed and enjoy the journey.'),
     ],
