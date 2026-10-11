@@ -25,8 +25,8 @@
       streak: 'Täysiä viikkoja putkeen', weeksOverview: 'Viikot', phases: 'Jaksot', milestones: 'Virstanpylväät',
       notes: 'Viimeisimmät muistiinpanot', noNotes: 'Ei vielä muistiinpanoja.',
       startDate: 'Ohjelman aloituspäivä',
-      startDateHelp: 'Voit aloittaa minä päivänä tahansa. Jokainen ohjelmaviikko alkaa samasta viikonpäivästä kuin aloituspäivä.',
-      setWeekHelp: 'Tästä päivästä tulee valitun viikon ensimmäinen päivä.',
+      startDateHelp: 'Ohjelmaviikot kulkevat maanantaista sunnuntaihin. Jos valitset muun päivän kuin maanantain, ohjelma alkaa seuraavana maanantaina.',
+      setWeekHelp: 'Kuluva viikko (ma–su) asetetaan valitsemaksesi ohjelmaviikoksi.',
       setWeek: 'Olen nyt viikolla', setWeekBtn: 'Aseta',
       backfill: 'Merkitse kaikki aiemmat päivät tehdyiksi',
       backfillConfirm: 'Merkitäänkö kaikki tätä päivää edeltävät merkitsemättömät päivät tehdyiksi?',
@@ -64,8 +64,8 @@
       streak: 'Full weeks in a row', weeksOverview: 'Weeks', phases: 'Phases', milestones: 'Milestones',
       notes: 'Latest notes', noNotes: 'No notes yet.',
       startDate: 'Program start date',
-      startDateHelp: 'You can start on any day. Every program week starts on the same weekday as the start date.',
-      setWeekHelp: 'Today becomes the first day of the chosen week.',
+      startDateHelp: 'Program weeks run from Monday to Sunday. If you pick a day other than Monday, the program starts the following Monday.',
+      setWeekHelp: 'The current week (Mon–Sun) becomes the program week you choose.',
       setWeek: 'I am currently on week', setWeekBtn: 'Set',
       backfill: 'Mark all earlier days as done',
       backfillConfirm: 'Mark every unmarked day before today as done?',
@@ -95,11 +95,14 @@
   const fromISO = (s) => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); };
   const startOfToday = () => { const n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate()); };
   const addDays = (dt, n) => { const r = new Date(dt); r.setDate(r.getDate() + n); return r; };
+  // Program weeks always run Monday-Sunday.
+  const mondayOf = (dt) => addDays(dt, -((dt.getDay() + 6) % 7));
+  const mondayOnOrAfter = (dt) => mondayOf(addDays(dt, 6));
   const daysBetween = (a, b) => Math.round((b - a) / DAY_MS);
 
   function defaultState() {
     return {
-      startDate: toISO(startOfToday()),
+      startDate: toISO(mondayOnOrAfter(startOfToday())),
       lang: (navigator.language || 'fi').toLowerCase().startsWith('fi') ? 'fi' : 'en',
       log: {},
     };
@@ -117,7 +120,7 @@
     const base = defaultState();
     if (!obj || typeof obj !== 'object') return base;
     if (typeof obj.startDate === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(obj.startDate)) {
-      base.startDate = obj.startDate;
+      base.startDate = toISO(mondayOf(fromISO(obj.startDate)));
     }
     if (obj.lang === 'fi' || obj.lang === 'en') base.lang = obj.lang;
     if (obj.log && typeof obj.log === 'object') {
@@ -544,7 +547,7 @@
 
     if (el.id === 'setWeekBtn') {
       const n = Math.min(WEEKS, Math.max(1, Number($('#weekNo').value) || 1));
-      state.startDate = toISO(addDays(startOfToday(), -(n - 1) * 7));
+      state.startDate = toISO(addDays(mondayOf(startOfToday()), -(n - 1) * 7));
       save(); return render();
     }
     if (el.id === 'backfillBtn') {
@@ -583,7 +586,7 @@
 
   document.addEventListener('change', (ev) => {
     if (ev.target.id === 'startDate' && ev.target.value) {
-      state.startDate = ev.target.value;
+      state.startDate = toISO(mondayOnOrAfter(fromISO(ev.target.value)));
       save(); render();
     }
     if (ev.target.id === 'importFile' && ev.target.files[0]) {

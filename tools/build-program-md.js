@@ -9,7 +9,7 @@ const cell = (s) => s.replace(/\|/g, '\\|');
 let out = '# Juoksuohjelma – 52 viikkoa\n\n';
 out += '> Generoitu tiedostosta `js/program.js` (`node tools/build-program-md.js`). ';
 out += P.source + ' Viikot 12–52 ovat jatko-ohjelma.\n\n';
-out += 'Taulukko olettaa aloituksen maanantaina. Ohjelman voi aloittaa minä päivänä tahansa – viikko alkaa silloin aloituspäivän viikonpäivästä. '
+out += 'Ohjelmaviikot kulkevat maanantaista sunnuntaihin. '
   + 'Kaikki harjoitukset sopivat sekä juoksumatolle että ulos.\n\n';
 out += 'Tyypit: 🛌 lepo · 🚶 kävely · 🏃 juoksu · ⚡ vauhti · 🛣️ pitkä lenkki · 🏁 tavoite/testi\n\n';
 const icon = { rest: '🛌', walk: '🚶', run: '🏃', speed: '⚡', long: '🛣️', goal: '🏁' };

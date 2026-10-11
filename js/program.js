@@ -86,7 +86,7 @@
     24: ['Aika-ajoviikko: 10 km!', 'Time trial week: 10 km!'],
     25: ['Palautumista ja rauhallista juoksua.', 'Recovery and easy running.'],
     28: ['Kevennysviikko.', 'Cut-back week.'],
-    29: ['14 viikkoa puolimaratoniin. Pitkä lenkki mitataan nyt kilometreinä.', '14 weeks to the half marathon. The long run is now measured in kilometres.'],
+    29: ['14 viikkoa puolimaratoniin. Tällä jaksolla pitkä lenkki mitataan kilometreinä.', '14 weeks to the half marathon. In this phase the long run is measured in kilometres.'],
     32: ['Kevennysviikko.', 'Cut-back week.'],
     36: ['Kevennysviikko.', 'Cut-back week.'],
     40: ['Keventely alkaa.', 'Taper begins.'],
@@ -328,8 +328,8 @@
 
     // ---------------- Phase 4: 10 km time trial (21–24) ----------------
     /* 21 */ [
-      rest('Vapaa. Seuraava tavoite: 10 km aika-ajo kolmen viikon päästä!',
-        'Rest. Next goal: a 10 km time trial in three weeks!'),
+      rest('Vapaa. Seuraava tavoite: 10 km aika-ajo viikon 24 sunnuntaina!',
+        'Rest. Next goal: a 10 km time trial on Sunday of week 24!'),
       easy(45),
       walk(30),
       tempo(15),
@@ -493,7 +493,7 @@
       easy(60),
       walk(30),
       d('speed', 'Tempojuoksu: lämmittele 10 min, 2 x 15 min reipasta vauhtia (3 min hölkkä välissä), loppuverryttely 10 min.',
-        'Tempo: 10 min warm-up, 2 x 15 min comfortably hard (3 min jog between), 10 min cool-down.'),
+        'Tempo run: 10 min warm-up, 2 x 15 min comfortably hard (3 min jog between), 10 min cool-down.'),
       rest(),
       easy(45),
       d('long', 'Pitkä lenkki 16 km: viimeiset 5 km puolimaratonvauhtia.', 'Long run 16 km: the last 5 km at half marathon pace.'),

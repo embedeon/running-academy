@@ -20,8 +20,8 @@ A small web app that takes you from walking to running in one year, with progres
 The program is only running and walking, with no strength training or other sports.
 Every 4th week is a lighter (cut-back) week, and the long run grows by no more than about 10 % a week.
 
-The program doesn't depend on season, weather or a race calendar. You can start it on any day: every program week then
-starts on the start date's weekday, and the app shows the real weekday for each day. Every session works on a treadmill or outside. In weeks 1–11 the
+The program doesn't depend on season, weather or a race calendar. You can start it any week: program weeks always run
+Monday–Sunday, and a start date other than a Monday moves the start to the following Monday. Every session works on a treadmill or outside. In weeks 1–11 the
 original wording is kept; only "turn around … home" is shortened to "back" (e.g. "Juokse 5 km ja vielä 5 min.
 Kävele takaisin."). The goals are time trials you run yourself, not races on fixed dates.
 `tools/check-program.js` fails if season-, weather-, route- or race-specific wording slips back in.
